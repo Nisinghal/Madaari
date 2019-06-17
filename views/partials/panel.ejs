@@ -1,0 +1,91 @@
+<div class="panel">
+  <p class="panel-title">Programming Blocks</p>
+  <!--Control Tab-->
+  <div class="blocks-title control open">
+    <i class="fas fa-chevron-right"></i> Control Blocks
+  </div>
+
+  <div class="blocks-container control-container open">
+    <div class="block control-block ifthen" aria-label="ifthen">
+      <p class="name">if</p>
+      <div class="drop-area if-drop"></div>
+      <p class="name">then</p>
+      <div class="drop-area then-drop"></div>
+    </div>
+
+    <div class="block control-block delay" aria-label="delay">
+      <p class="name">delay</p>
+      <label for="delay-time">Wait</label
+      ><input class="small-input" type="number" placeholder="00" />
+      <span>seconds</span>
+    </div>
+
+    <div class="block control-block repeat" aria-label="repeat">
+      <p class="name">repeat</p>
+      <label for="delay-time">x</label
+      ><input class="small-input" type="number" placeholder="00" />
+      <div class="drop-area repeat-drop"></div>
+    </div>
+  </div>
+
+  <div class="blocks-title cues">
+    <i class="fas fa-chevron-right"></i> Cue Blocks
+  </div>
+  <div class="blocks-container cue-container">
+    <div class="block cue-block keyword" aria-label="keyword">
+      <p class="name">keyword</p>
+      <input type="text" placeholder="Enter word" />
+    </div>
+
+    <div class="block cue-block music" aria-label="music">
+      <p class="name">music</p>
+      <select>
+        <option disabled selected>Select</option>
+        <option>Happy</option>
+        <option>Gloomy</option>
+        <option>More</option>
+      </select>
+    </div>
+
+    <div class="block cue-block expression" aria-label="expression">
+      <p class="name">expression</p>
+      <select>
+        <option disabled selected>Select</option>
+        <option>Happy</option>
+        <option>Gloomy</option>
+        <option>Excited</option>
+        <option>Surprised</option>
+      </select>
+    </div>
+
+    <div class="block control-block delay" aria-label="delay">
+      <p class="name">await for</p>
+      <label for="delay-time">Wait</label
+      ><input class="small-input" type="number" placeholder="00" />
+      <span>seconds</span>
+    </div>
+
+    <div class="block control-block delay" aria-label="delay">
+      <p class="name">or</p>
+    </div>
+  </div>
+
+  <div class="blocks-title actions">
+    <i class="fas fa-chevron-right"></i> Action Blocks
+  </div>
+
+  <div class="blocks-container action-container">
+    <div class="block action-block motor" aria-label="motor">
+      <p class="name">motor</p>
+      <input type="text" class="small-input" placeholder="00" />
+      <input type="text" class="small-input" placeholder="00" />
+      <input type="text" class="small-input" placeholder="00" />
+    </div>
+    <div class="block action-block animation" aria-label="animation">
+      <p class="name">move animation</p>
+      <input type="text" class="small-input" placeholder="00" />
+      <input type="text" class="small-input" placeholder="00" />
+      <input type="text" class="small-input" placeholder="00" />
+    </div>
+  </div>
+</div>

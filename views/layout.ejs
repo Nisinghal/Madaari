@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Madaari</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Roboto:100,300,300i,400,400i,500,500i,700,700i,900&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../style.css" />
+  </head>
+  <body>
+    <%- body %>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <% if(typeof tab != 'undefined'){ %> <% if(tab=='story') { %>
+    <script src="../story.js"></script>
+    <% } %> <% if(tab=='read') { %>
+    <script src="../read.js"></script>
+    <% } %> <% if(tab=='program') { %>
+    <script src="../program.js"></script>
+    <script src="../block-gen.js"></script>
+    <script src="../block-functions.js"></script>
+    <script src="../panel-control.js"></script>
+    <% } %> <% } %>
+  </body>
+</html>
