@@ -12,10 +12,14 @@ function distance(x1, y1, x2, y2) {
   return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 }
 
-function returnBlockInfo(block) {
+function returnBlockInfo(block, x = null, y = null) {
   let blockType = block.attr("aria-label");
-  let x = block.offset().left;
-  let y = block.offset().top;
+  if (x == null) {
+    x = block.offset().left;
+  }
+  if (y == null) {
+    y = block.offset().top;
+  }
   let blockHeight = block.innerHeight();
   let blockWidth = block.innerWidth();
   let centerx = x + blockWidth / 2 - boardx;
@@ -54,6 +58,23 @@ function removeHoverProperties() {
   $(".block.trash").removeClass("trash-open");
 }
 
+function dropAreaPaddingFix(dropArea) {
+  $(".board")
+    .find(".drop-area")
+    .each(function(i) {
+      if ($(this).find(".block").length > 0) {
+        $(this).addClass("no-padding");
+      } else {
+        $(this).removeClass("no-padding");
+      }
+    });
+  if (dropArea.find(".block").length > 1) {
+    dropArea.addClass("no-padding");
+  } else {
+    dropArea.removeClass("no-padding");
+  }
+}
+
 function dragHover(dragged) {
   let [blockType, x, y, centerx, centery] = returnBlockInfo(dragged);
   let [action, element] = findOverlap(centerx, centery, x, y);
@@ -65,7 +86,7 @@ function dragHover(dragged) {
         return;
       }
       if (droppedType == "ifthen") {
-        element.css("box-shadow", "0px 0px 0px 0.4rem rgba(255,195,139,.5)");
+        element.css("box-shadow", "0px 0px 0px 0.25rem rgba(52, 152, 219,.25)");
         if (blockNamesIf.indexOf(blockType) > -1) {
           element.children(".if-drop").addClass("more-padding");
         } else if (blockNamesThen.indexOf(blockType) > -1) {
@@ -73,7 +94,10 @@ function dragHover(dragged) {
         }
       } else if (droppedType == "repeat") {
         if (blockNamesThen.indexOf(blockType) > -1 && blockType != "repeat") {
-          element.css("box-shadow", "0px 0px 0px 0.4rem rgba(255,195,139,.5)");
+          element.css(
+            "box-shadow",
+            "0px 0px 0px 0.25rem rgba(52, 152, 219,.25)"
+          );
           element.children(".drop-area").addClass("more-padding");
         }
       }

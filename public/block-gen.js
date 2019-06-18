@@ -140,7 +140,6 @@ function generateBlock(keyword, x, y, specific = "", values = blankValues) {
 
 function recreateBlock(block, x, y, specific = "") {
   let blockName = block.attr("aria-label");
-  console.log(blockName);
   if (blockName == "keyword") {
     let val = block.children("input").val();
     if (val) {
@@ -213,5 +212,5 @@ function recreateBlock(block, x, y, specific = "") {
     return generateBlock(blockName, x, y, specific, [val, repeatInnerDOM]);
   }
   console.log("Some error");
-  return 0;
+  return;
 }
