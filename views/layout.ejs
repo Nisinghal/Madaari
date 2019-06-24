@@ -15,6 +15,12 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" media="screen" href="../style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="../animation.css"
+    />
   </head>
   <body>
     <%- body %>
@@ -29,10 +35,12 @@
     <% } %> <% if(tab=='read') { %>
     <script src="../read.js"></script>
     <% } %> <% if(tab=='program') { %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
     <script src="../program.js"></script>
     <script src="../block-gen.js"></script>
     <script src="../block-functions.js"></script>
     <script src="../panel-control.js"></script>
+    <script src="../animation-control.js"></script>
     <% } %> <% } %>
   </body>
 </html>

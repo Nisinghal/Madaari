@@ -6,7 +6,9 @@ var blockMapping = [
   "animation",
   "ifthen",
   "delay",
-  "repeat"
+  "repeat",
+  "followed-by",
+  "or"
 ];
 
 var blockTitle = [
@@ -14,10 +16,12 @@ var blockTitle = [
   "music",
   "expression",
   "motor",
-  "move animation",
+  "animation",
   "ifthen",
   "delay",
-  "repeat"
+  "repeat",
+  "followed by",
+  "or"
 ];
 
 var blockTypes = [
@@ -28,7 +32,9 @@ var blockTypes = [
   "action-block",
   "control-block",
   "control-block",
-  "control-block"
+  "control-block",
+  "cue-block",
+  "cue-block"
 ];
 
 let blankValues = ["", "", "", "", "", "", "", "", "", ""];
@@ -41,7 +47,12 @@ function generateBlock(keyword, x, y, specific = "", values = blankValues) {
     var block = `
     <div class="block keyword ${blockType}" aria-label="keyword" style="${specific} top: ${y}px; left: ${x}px;">
         <p class="name">${blockTitle[keywordIndex]}</p>
-        <input type="text" placeholder="Enter word" value="${values[0]}">
+        <input type="number" class="small-input occurance" placeholder="00" value="${
+          values[0]
+        }"/>
+        <input type="text" class="large-input word" placeholder="Enter word" value="${
+          values[1]
+        }"/>
     </div>
     `;
   } else if (keyword == "music") {
@@ -88,15 +99,13 @@ function generateBlock(keyword, x, y, specific = "", values = blankValues) {
     var block = `
     <div class="block animation ${blockType}" aria-label="animation" style="${specific} top: ${y}px; left: ${x}px;">
         <p class="name">${blockTitle[keywordIndex]}</p>
-        <input type="text" value="${
-          values[0]
-        }" class="small-input" placeholder="00" />
-        <input type="text" value="${
-          values[1]
-        }" class="small-input" placeholder="00" />
-        <input type="text" value="${
-          values[2]
-        }" class="small-input" placeholder="00" />
+        
+      <input class="medium-input avatar" placeholder="Avatar" value="${
+        values[0]
+      }"/>
+      <input class="medium-input action" placeholder="Action" value="${
+        values[1]
+      }"/>
     </div>
     `;
   } else if (keyword == "ifthen") {
@@ -134,6 +143,17 @@ function generateBlock(keyword, x, y, specific = "", values = blankValues) {
         ${values[1]}
       </div>
     </div>`;
+  } else if (keyword == "followed-by") {
+    var block = `
+    <div class="block control-block followed" aria-label="followed-by" style="${specific} top: ${y}px; left: ${x}px;">
+      <p class="name">Followed By</p>
+    </div>`;
+  } else if (keyword == "or") {
+    var block = `
+    <div class="block control-block or" aria-label="or" style="${specific} top: ${y}px; left: ${x}px;">
+      <p class="name">or</p>
+    </div>
+    `;
   }
   return block;
 }
@@ -141,12 +161,14 @@ function generateBlock(keyword, x, y, specific = "", values = blankValues) {
 function recreateBlock(block, x, y, specific = "") {
   let blockName = block.attr("aria-label");
   if (blockName == "keyword") {
-    let val = block.children("input").val();
-    if (val) {
-      return generateBlock(blockName, x, y, specific, [val]);
-    } else {
-      return generateBlock(blockName, x, y, specific);
+    let val = ["", ""];
+    if (block.children("input.word").val()) {
+      val[1] = block.children("input.word").val();
     }
+    if (block.children("input.occurance").val()) {
+      val[0] = block.children("input.occurance").val();
+    }
+    return generateBlock(blockName, x, y, specific, val);
   } else if (blockName == "music") {
     let val = block.find("option:selected").text();
     if (val != "Select") {
@@ -179,15 +201,12 @@ function recreateBlock(block, x, y, specific = "") {
     }
     return generateBlock(blockName, x, y, specific, values);
   } else if (blockName == "animation") {
-    let values = ["", "", ""];
+    let values = ["", ""];
     if (block.children("input:nth-child(2)").val()) {
       values[0] = block.children("input:nth-child(2)").val();
     }
     if (block.children("input:nth-child(3)").val()) {
       values[1] = block.children("input:nth-child(3)").val();
-    }
-    if (block.children("input:nth-child(4)").val()) {
-      values[2] = block.children("input:nth-child(4)").val();
     }
     return generateBlock(blockName, x, y, specific, values);
   } else if (blockName == "delay") {
@@ -210,6 +229,10 @@ function recreateBlock(block, x, y, specific = "") {
           recreateBlock($(this), 0, 0, "position: relative;") + "\n";
       });
     return generateBlock(blockName, x, y, specific, [val, repeatInnerDOM]);
+  } else if (blockName == "followed-by") {
+    return generateBlock(blockName, x, y, specific);
+  } else if (blockName == "or") {
+    return generateBlock(blockName, x, y, specific);
   }
   console.log("Some error");
   return;

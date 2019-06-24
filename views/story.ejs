@@ -1,14 +1,15 @@
 <% include ./partials/header %>
 <div class="workspace">
-  <div class="story-subheader">
-    <div></div>
-    <div class="story-align-center">
-      <input
-        class="story-search"
-        placeholder="Search stories from our library"
-      />
+  <div class="story-wrapper">
+    <div class="database">
+      <p class="panel-title">Our collection</p>
+      <!-- <input class="story-search" placeholder="Search stories" /> -->
     </div>
-    <div class="story-align-center story-load-actions">
+    <textarea
+      class="type-story"
+      placeholder="Start typing or Paste your story"
+    ></textarea>
+    <div class="story-load-actions">
       <div class="take-picture tooltip" aria-label="Take a picture">
         <i class="fas fa-camera"></i>
       </div>
@@ -20,8 +21,4 @@
       </div>
     </div>
   </div>
-  <textarea
-    class="type-story"
-    placeholder="Start typing or Paste your story"
-  ></textarea>
 </div>

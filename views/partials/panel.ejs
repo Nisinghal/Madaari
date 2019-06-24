@@ -34,7 +34,8 @@
   <div class="blocks-container cue-container">
     <div class="block cue-block keyword" aria-label="keyword">
       <p class="name">keyword</p>
-      <input type="text" placeholder="Enter word" />
+      <input type="number" class="small-input occurance" placeholder="00" />
+      <input type="text" class="large-input word" placeholder="Enter word" />
     </div>
 
     <div class="block cue-block music" aria-label="music">
@@ -58,19 +59,16 @@
       </select>
     </div>
 
-    <div class="block control-block delay" aria-label="delay">
-      <p class="name">await for</p>
-      <label for="delay-time">Wait</label
-      ><input class="small-input" type="number" placeholder="00" />
-      <span>seconds</span>
+    <div class="block control-block followed" aria-label="followed-by">
+      <p class="name">Followed By</p>
     </div>
 
-    <div class="block control-block delay" aria-label="delay">
+    <div class="block control-block or" aria-label="or">
       <p class="name">or</p>
     </div>
   </div>
 
-  <div class="blocks-title actions">
+  <div class="blocks-title actions-tab">
     <i class="fas fa-chevron-right"></i> Action Blocks
   </div>
 
@@ -82,10 +80,9 @@
       <input type="text" class="small-input" placeholder="00" />
     </div>
     <div class="block action-block animation" aria-label="animation">
-      <p class="name">move animation</p>
-      <input type="text" class="small-input" placeholder="00" />
-      <input type="text" class="small-input" placeholder="00" />
-      <input type="text" class="small-input" placeholder="00" />
+      <p class="name">animation</p>
+      <input class="medium-input avatar" placeholder="Avatar" />
+      <input class="medium-input action" placeholder="Action" />
     </div>
   </div>
 </div>

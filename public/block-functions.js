@@ -1,12 +1,6 @@
 var blockNamesThen = ["delay", "motor", "animation", "repeat"];
-var blockNamesIf = ["keyword", "music", "expression"];
+var blockNamesIf = ["keyword", "music", "expression", "followed-by", "or"];
 var droppables = ["ifthen", "repeat", "trash"];
-
-//Gathering Board Area
-var boardx = $(".board").offset().left;
-var boardy = $(".board").offset().top;
-var boardlimitx = $(".board").offset().left + $(".board").width();
-var boardlimity = $(".board").offset().top + $(".board").height();
 
 function distance(x1, y1, x2, y2) {
   return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
@@ -22,8 +16,8 @@ function returnBlockInfo(block, x = null, y = null) {
   }
   let blockHeight = block.innerHeight();
   let blockWidth = block.innerWidth();
-  let centerx = x + blockWidth / 2 - boardx;
-  let centery = y + blockHeight / 2 - boardy;
+  let centerx = x + blockWidth / 2;
+  let centery = y + blockHeight / 2;
   return [blockType, x, y, centerx, centery];
 }
 
@@ -42,7 +36,7 @@ function findOverlap(centerX, centerY, x, y) {
       ] = returnBlockInfo($(this));
       let dist = distance(centerX, centerY, thisCenterX, thisCenterY);
       let blockArea = distance(centerX, centerY, x, y);
-      if (0 < dist && dist < blockArea) {
+      if (0 < dist && dist < blockArea + 10) {
         domElement = $(this);
         result = "overlap";
         return;

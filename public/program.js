@@ -1,10 +1,4 @@
 $("document").ready(function() {
-  //Gathering Board Area
-  var boardx = $(".board").offset().left;
-  var boardy = $(".board").offset().top;
-  var boardlimitx = $(".board").offset().left + $(".board").width();
-  var boardlimity = $(".board").offset().top + $(".board").height();
-
   //Sortable Block Out Params
   var sortx = 0;
   var sorty = 0;
@@ -38,6 +32,10 @@ $("document").ready(function() {
           ui.item.addClass("block-out");
         },
         beforeStop: function(event, ui) {
+          //Gathering Board Area
+          var boardx = $(".board").offset().left;
+          var boardy = $(".board").offset().top;
+
           let sortBlock = $(".block-out");
           if (sortBlock.length > 0) {
             let [blockType, x, y, centerx, centery] = returnBlockInfo(
@@ -72,6 +70,12 @@ $("document").ready(function() {
         dragHover($(this));
       },
       stop: function(event, ui) {
+        //Gathering Board Area
+        var boardx = $(".board").offset().left;
+        var boardy = $(".board").offset().top;
+        var boardlimitx = $(".board").offset().left + $(".board").width();
+        var boardlimity = $(".board").offset().top + $(".board").height();
+
         let [blockType, x, y, centerx, centery] = returnBlockInfo($(this));
         //Reset Panel Block
         $(this).css("top", "0px");
