@@ -23,5 +23,19 @@
         Reading
       </div></a
     >
+    <div class="header-buttons">
+      <% if(tab=='story') {%>
+      <button class="story save-continue">
+        <i class="fas fa-save"></i> Save Story
+      </button>
+      <%} %> <% if(tab=='program') {%>
+      <button class="program check-code">
+        <i class="fas fa-flask"></i> Check
+      </button>
+      <button class="program upload">
+        <i class="fas fa-cloud-upload-alt"></i> Upload
+      </button>
+      <%} %>
+    </div>
   </div>
 </header>

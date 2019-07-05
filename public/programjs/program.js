@@ -4,6 +4,14 @@ $("document").ready(function() {
   var sorty = 0;
   var droppables = ["ifthen", "repeat"];
 
+  $(".board").on("click", ".block", function(e) {
+    e.stopPropagation();
+  });
+
+  $(".board").on("click", "input", function(e) {
+    e.stopPropagation();
+  });
+
   function enableBlockDrag() {
     $(".board .block")
       .disableSelection()

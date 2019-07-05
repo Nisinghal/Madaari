@@ -1,2 +1,38 @@
 <% include ./partials/header %>
-<div class="workspace"></div>
+<div class="workspace reading">
+  <div class="story-read">
+    <p class="panel-title">Story</p>
+    <p class="story-paragraph">
+      Loading...
+    </p>
+  </div>
+  <div class="monitoring-tabs">
+    <div class="expression-stream">
+      <div class="emoji"></div>
+      <div class="start-stop">
+        <span class="start"><i class="fas fa-play"></i></span>
+        <span class="stop"><i class="fas fa-pause"></i></span>
+      </div>
+      <div class="expression-message">Loading Expression Detection</div>
+    </div>
+    <div class="animation-screen">
+      <div class="player">
+        <!-- Expression -->
+        <div class="animation-avatar animation-expression">
+          <div class="eye-left"></div>
+          <div class="eye-right"></div>
+          <div class="brow-left"></div>
+          <div class="brow-right"></div>
+          <svg id="mouth"></svg>
+        </div>
+        <!-- Stick Figure -->
+        <div class="animation-avatar animation-stick-figure">
+          <div class="stick-figure walking"></div>
+          <div class="stick-figure running"></div>
+          <div class="stick-figure jumping"></div>
+        </div>
+      </div>
+    </div>
+    <div class="external-console"></div>
+  </div>
+</div>

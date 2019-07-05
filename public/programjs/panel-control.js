@@ -73,7 +73,10 @@ $(document).ready(function() {
         '<div class="selected-text"><div class="generate-keyword-button">Generate Cue Block</div></div>'
       );
       let panel = $(".access-story").offset();
-      $(".selected-text").css("top", rect.top - panel.top + "px");
+      $(".selected-text").css(
+        "top",
+        $(".access-story").scrollTop() + rect.top - panel.top + "px"
+      );
       $(".selected-text").css("left", rect.left - panel.left + "px");
       $(".selected-text").css("height", rect.height + "px");
       $(".selected-text").css("width", rect.width + "px");
@@ -82,11 +85,11 @@ $(document).ready(function() {
     }
   }
 
-  $("p.story").mouseup(function() {
+  $(".access-story .content-wrapper").on("mouseup", "p.story", function() {
     keywordSelected();
   });
 
-  $("p.story").mousedown(function() {
+  $(".access-story .content-wrapper").on("mousedown", "p.story", function() {
     let keywordSelection = $(".selected-text");
     if (keywordSelected) {
       keywordSelection.remove();

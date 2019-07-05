@@ -47,11 +47,8 @@ function generateBlock(keyword, x, y, specific = "", values = blankValues) {
     var block = `
     <div class="block keyword ${blockType}" aria-label="keyword" style="${specific} top: ${y}px; left: ${x}px;">
         <p class="name">${blockTitle[keywordIndex]}</p>
-        <input type="number" class="small-input occurance" placeholder="00" value="${
+        <input type="text" class="word" placeholder="Enter word" value="${
           values[0]
-        }"/>
-        <input type="text" class="large-input word" placeholder="Enter word" value="${
-          values[1]
         }"/>
     </div>
     `;
@@ -135,8 +132,8 @@ function generateBlock(keyword, x, y, specific = "", values = blankValues) {
     var block = `
     <div class="block control-block repeat" aria-label="${keyword}" style="${specific} top: ${y}px; left: ${x}px;">
       <p class="name">repeat</p>
-      <label for="delay-time">x</label
-      ><input class="small-input" value="${
+      <label for="repeat">x</label
+      ><input class="small-input repeatVal" value="${
         values[0]
       }" type="number" placeholder="00" />
       <div class="drop-area repeat-drop">
@@ -161,12 +158,9 @@ function generateBlock(keyword, x, y, specific = "", values = blankValues) {
 function recreateBlock(block, x, y, specific = "") {
   let blockName = block.attr("aria-label");
   if (blockName == "keyword") {
-    let val = ["", ""];
+    let val = [""];
     if (block.children("input.word").val()) {
-      val[1] = block.children("input.word").val();
-    }
-    if (block.children("input.occurance").val()) {
-      val[0] = block.children("input.occurance").val();
+      val[0] = block.children("input.word").val();
     }
     return generateBlock(blockName, x, y, specific, val);
   } else if (blockName == "music") {

@@ -22,8 +22,13 @@
 
     <div class="block control-block repeat" aria-label="repeat">
       <p class="name">repeat</p>
-      <label for="delay-time">x</label
-      ><input class="small-input" type="number" placeholder="00" />
+      <label for="repeat">x</label
+      ><input
+        class="small-input repeatVal"
+        type="number"
+        value="1"
+        placeholder="00"
+      />
       <div class="drop-area repeat-drop"></div>
     </div>
   </div>
@@ -34,8 +39,7 @@
   <div class="blocks-container cue-container">
     <div class="block cue-block keyword" aria-label="keyword">
       <p class="name">keyword</p>
-      <input type="number" class="small-input occurance" placeholder="00" />
-      <input type="text" class="large-input word" placeholder="Enter word" />
+      <input type="text" class="word" placeholder="Enter word" />
     </div>
 
     <div class="block cue-block music" aria-label="music">

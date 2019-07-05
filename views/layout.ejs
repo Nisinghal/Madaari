@@ -14,16 +14,38 @@
       rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" media="screen" href="../style.css" />
     <link
       rel="stylesheet"
       type="text/css"
       media="screen"
-      href="../animation.css"
+      href="../css/style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="../css/animation.css"
     />
   </head>
   <body>
     <%- body %>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyDfNn8BEwCgkp1V8nbgQjsermO8wf-cxEU",
+        authDomain: "madaari-cb7be.firebaseapp.com",
+        databaseURL: "https://madaari-cb7be.firebaseio.com",
+        projectId: "madaari-cb7be",
+        storageBucket: "",
+        messagingSenderId: "830130457469",
+        appId: "1:830130457469:web:4cb453be31dc6d9c"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -31,16 +53,25 @@
     ></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <% if(typeof tab != 'undefined'){ %> <% if(tab=='story') { %>
-    <script src="../story.js"></script>
-    <% } %> <% if(tab=='read') { %>
-    <script src="../read.js"></script>
+    <script src="../storyjs/speechrecog.js"></script>
+    <script src="../storyjs/story.js"></script>
+    <script src="../storyjs/database.js"></script>
+    <% } %> <% if(tab=='reading') { %>
+    <script src="../readjs/read.js"></script>
+    <script src="https://download.affectiva.com/js/3.2.1/affdex.js"></script>
+    <script src="../readjs/face.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
+    <script src="../readjs/animation-control.js"></script>
+    <script src="../readjs/database.js"></script>
     <% } %> <% if(tab=='program') { %>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
-    <script src="../program.js"></script>
-    <script src="../block-gen.js"></script>
-    <script src="../block-functions.js"></script>
-    <script src="../panel-control.js"></script>
-    <script src="../animation-control.js"></script>
+    <script src="../programjs/program.js"></script>
+    <script src="../programjs/block-gen.js"></script>
+    <script src="../programjs/block-functions.js"></script>
+    <script src="../programjs/panel-control.js"></script>
+    <script src="../programjs/animation-control.js"></script>
+    <script src="../programjs/execute.js"></script>
+    <script src="../programjs/database.js"></script>
     <% } %> <% } %>
   </body>
 </html>
