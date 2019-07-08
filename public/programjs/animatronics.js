@@ -5,9 +5,7 @@ function moveMotor(motor, speed, rotation) {
     rotation: rotation
   };
 
-  $.post("/moveMotor", data, function(data, status) {
-    console.log("Data: " + data + "\nStatus: " + status);
-  });
+  $.post("/moveMotor", data, function(data, status) {});
 }
 
 $(document).ready(function() {
@@ -34,5 +32,12 @@ $(document).ready(function() {
     setTimeout(function() {
       $(".panel .block.motor").removeClass("generate");
     }, 500);
+  });
+
+  $("button.test-motor-params").click(function() {
+    let motor = $("input.motor-input").val();
+    let speed = $("input.speed-input").val();
+    let rotation = $("input.rotation-input").val();
+    moveMotor(motor, speed, rotation);
   });
 });

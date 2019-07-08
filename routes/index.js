@@ -32,7 +32,9 @@ router.post("/moveMotor", function(req, res) {
   );
   ssh
     .exec(
-      "python moveTest.py MOVE req.body.motor req.body.rotation req.body.speed",
+      `python moveTest.py MOVE ${req.body.motor} ${req.body.rotation} ${
+        req.body.speed
+      }`,
       {
         out: function(stdout) {
           console.log(stdout);

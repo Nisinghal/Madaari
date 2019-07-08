@@ -3,7 +3,12 @@
     <p class="panel-title">Animatronics</p>
     <div class="motor-control">
       <p class="info">Motor</p>
-      <input type="number" class="motor-input" placeholder="Motor Number" />
+      <input
+        type="number"
+        class="motor-input"
+        placeholder="Motor Number"
+        value="1"
+      />
       <p class="info speed">Speed <span>0</span></p>
       <input
         type="range"
@@ -16,11 +21,12 @@
       <input
         type="range"
         class="slider rotation-input"
-        min="0"
+        min="-1000"
         max="1000"
         value="0"
       />
-      <button class="fill generate-motor-block">Generate Block</button>
+      <button class="fill generate-motor-block">Generate Block</button
+      ><button class="fill test-motor-params">Test Parameters</button>
     </div>
   </div>
   <div class="icon-rep">
