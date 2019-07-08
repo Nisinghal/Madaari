@@ -38,6 +38,21 @@ function returnToPerform(block, delayValue = 0) {
       params: [avatar, action],
       type: "Animation"
     };
+  } else if (blockType == "motor") {
+    let motor = block.find("input.motor").val();
+    let speed = block.find("input.speed").val();
+    let rotation = block.find("input.rotation").val();
+    return {
+      execute: function(delay) {
+        setTimeout(function() {
+          console.log(motor, speed, rotation);
+          moveMotor(motor, speed, rotation);
+        }, delay);
+      },
+      delay: delayValue,
+      params: [motor, speed, rotation],
+      type: "Motor"
+    };
   } else if (blockType == "repeat") {
     let parseResult = repeatBlockParse(block);
     let repeatFunctions = parseResult.functions;

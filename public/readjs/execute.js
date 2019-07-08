@@ -8,6 +8,13 @@ function decodeExecution(obj) {
     setTimeout(function() {
       selectAction(avatar, action);
     }, obj.delay);
+  } else if (obj.type == "Motor") {
+    let motor = obj.params[0];
+    let speed = obj.params[1];
+    let rotation = obj.params[2];
+    setTimeout(function() {
+      moveMotor(motor, speed, rotation);
+    }, obj.delay);
   } else if (obj.type == "Repeat") {
     let events = obj.repeatEvents;
     setTimeout(function() {

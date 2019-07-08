@@ -71,9 +71,12 @@ function generateBlock(keyword, x, y, specific = "", values = blankValues) {
         <select>
           <option disabled selected>Select</option>
           <option ${values[0]}>Happy</option>
-          <option ${values[1]}>Gloomy</option>
-          <option ${values[2]}>Excited</option>
-          <option ${values[3]}>Surprised</option>
+          <option ${values[1]}>Sad</option>
+          <option ${values[2]}>Wink</option>
+          <option ${values[3]}>Kiss</option>
+          <option ${values[4]}>Stick-out Tongue</option>
+          <option ${values[5]}>Shocked</option>
+          <option ${values[6]}>Angry</option>
         </select>
       </div>
     `;
@@ -177,9 +180,18 @@ function recreateBlock(block, x, y, specific = "") {
   } else if (blockName == "expression") {
     let val = block.find("option:selected").text();
     if (val != "Select") {
-      let values = ["", "", "", ""];
-      values[["Happy", "Gloomy", "Excited", "Surprised"].indexOf(val)] =
-        "selected";
+      let values = ["", "", "", "", "", "", ""];
+      values[
+        [
+          "Happy",
+          "Sad",
+          "Wink",
+          "Kiss",
+          "Stick-out Tongue",
+          "Shocked",
+          "Angry"
+        ].indexOf(val)
+      ] = "selected";
       return generateBlock(blockName, x, y, specific, values);
     } else {
       return generateBlock(blockName, x, y, specific);
