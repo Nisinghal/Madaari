@@ -80,14 +80,16 @@ function generateBlock(keyword, x, y, specific = "", values = blankValues) {
   } else if (keyword == "motor") {
     var block = `
     <div class="block motor ${blockType}" aria-label="motor" style="${specific} top: ${y}px; left: ${x}px;">
-        <p class="name">${blockTitle[keywordIndex]}</p>
-        <input type="text" class="small-input" placeholder="00" value="${
+        <p class="name">${
+          blockTitle[keywordIndex]
+        }</p><i class="fas fa-list-ol"></i>
+        <input type="text" class="small-input motor" placeholder="00" value="${
           values[0]
-        }">
-        <input type="text" class="small-input" placeholder="00" value="${
+        }"><i class="fas fa-tachometer-alt"></i>
+        <input type="text" class="small-input speed" placeholder="00" value="${
           values[1]
-        }">
-        <input type="text" class="small-input" placeholder="00" value="${
+        }"><i class="fas fa-redo"></i>
+        <input type="text" class="small-input rotation" placeholder="00" value="${
           values[2]
         }">
     </div>
@@ -184,14 +186,14 @@ function recreateBlock(block, x, y, specific = "") {
     }
   } else if (blockName == "motor") {
     let values = ["", "", ""];
-    if (block.children("input:nth-child(2)").val()) {
-      values[0] = block.children("input:nth-child(2)").val();
-    }
     if (block.children("input:nth-child(3)").val()) {
-      values[1] = block.children("input:nth-child(3)").val();
+      values[0] = block.children("input:nth-child(3)").val();
     }
-    if (block.children("input:nth-child(4)").val()) {
-      values[2] = block.children("input:nth-child(4)").val();
+    if (block.children("input:nth-child(5)").val()) {
+      values[1] = block.children("input:nth-child(5)").val();
+    }
+    if (block.children("input:nth-child(7)").val()) {
+      values[2] = block.children("input:nth-child(7)").val();
     }
     return generateBlock(blockName, x, y, specific, values);
   } else if (blockName == "animation") {

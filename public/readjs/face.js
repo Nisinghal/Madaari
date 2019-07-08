@@ -3,7 +3,6 @@
 var divRoot = $(".expression-stream")[0];
 var width = $(".expression-stream").width();
 var height = $(".expression-stream").height();
-console.log(width, height);
 var faceMode = affdex.FaceDetectorMode.LARGE_FACES;
 //Construct a CameraDetector and specify the image width / height and face detector mode.
 var detector = new affdex.CameraDetector(divRoot, width, height, faceMode);
@@ -14,11 +13,17 @@ detector.detectAllExpressions();
 detector.detectAllEmojis();
 detector.detectAllAppearance();
 
+var setup = false;
+
 //Add a callback to notify when the detector is initialized and ready for runing.
 detector.addEventListener("onInitializeSuccess", function() {
   console.log("The detector reports initialized");
   //Display canvas instead of video feed because we want to draw the feature points on it
   $("#face_video_canvas").css("display", "block");
+  if (!setup) {
+    setup = true;
+    postMessage("Setup Complete. You can now enjoy reading!");
+  }
   $("#face_video").css("display", "none");
 });
 
@@ -74,8 +79,6 @@ detector.addEventListener("onImageResultsSuccess", function(
   timestamp
 ) {
   $("#results").html("");
-  console.log("Timestamp: " + timestamp.toFixed(2));
-  console.log("Number of faces found: " + faces.length);
   if (faces.length > 0) {
     // console.log("Appearance: " + JSON.stringify(faces[0].appearance));
     // console.log(

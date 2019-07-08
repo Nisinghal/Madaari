@@ -99,6 +99,42 @@ function executeEvents(events) {
   }
 }
 
+function getCueBlockDetails(block) {
+  let blockType = block.attr("aria-label");
+  if (blockType == "keyword") {
+    let cue = block.find("input.word").val();
+    return ["keyword", cue];
+  } else if (blockType == "expression") {
+    let cue = block.find("select").val();
+    return ["expression", cue];
+  } else if (blockType == "or") {
+    return ["or"];
+  }
+}
+
+function cueBlocksParsing(block) {
+  let cues = [];
+  let cueItem = {};
+  block
+    .children(".drop-area.if-drop")
+    .children(".block")
+    .each(function(i) {
+      let details = getCueBlockDetails($(this));
+      if (details) {
+        if (details.length > 1) {
+          cueItem[details[0]] = details[1];
+        } else if (details.length == 1) {
+          if (details[0] == "or") {
+            cues.push(cueItem);
+            cueItem = {};
+          }
+        }
+      }
+    });
+  cues.push(cueItem);
+  return cues;
+}
+
 $(document).ready(function() {
   $(".board").on("click", ".block.repeat", function() {
     let e = repeatBlockParse($(this)).functions;
@@ -113,5 +149,15 @@ $(document).ready(function() {
   $(".program.upload").click(function() {
     let cues = [];
     let actions = [];
+    $(".board")
+      .children(".block.ifthen")
+      .each(function(i) {
+        let a = actionBlocksParsing($(this));
+        let c = cueBlocksParsing($(this));
+        console.log(c);
+        cues.push(JSON.stringify(c));
+        actions.push(JSON.stringify(a));
+      });
+    uploadProgram(cues, actions);
   });
 });

@@ -100,7 +100,4 @@ function selectAction(avatar, action) {
   }
 }
 
-$(document).ready(function() {
-  console.log("Animation Control Loaded");
-  selectAction("Expression", "Happy");
-});
+$(document).ready(function() {});

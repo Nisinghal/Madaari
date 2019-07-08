@@ -1,6 +1,27 @@
 <div class="access-panel console terminal-console collapse">
   <div class="content-wrapper">
-    <p class="panel-title">Animatronics Console</p>
+    <p class="panel-title">Animatronics</p>
+    <div class="motor-control">
+      <p class="info">Motor</p>
+      <input type="number" class="motor-input" placeholder="Motor Number" />
+      <p class="info speed">Speed <span>0</span></p>
+      <input
+        type="range"
+        class="slider speed-input"
+        min="0"
+        max="200"
+        value="0"
+      />
+      <p class="info rotation">Rotation <span>0</span></p>
+      <input
+        type="range"
+        class="slider rotation-input"
+        min="0"
+        max="1000"
+        value="0"
+      />
+      <button class="fill generate-motor-block">Generate Block</button>
+    </div>
   </div>
   <div class="icon-rep">
     <i class="fas fa-terminal"></i>

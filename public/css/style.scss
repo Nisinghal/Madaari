@@ -19,6 +19,7 @@ $purple: #5965d6;
 $yellow: #ffaf66;
 $highlight: #ffc38b;
 $overlap: #ffc38b;
+$red: #e62b4a;
 
 /* Dotted Background */
 // Colors
@@ -89,7 +90,7 @@ header {
   position: fixed;
   top: 0px;
   left: 0px;
-  z-index: 1000;
+  z-index: 1000000;
 
   .logo {
     position: absolute;
@@ -111,7 +112,8 @@ header {
 
     button.save-continue,
     button.check-code,
-    button.upload {
+    button.upload,
+    button.trigger {
       padding: 10px 15px;
       background: $green;
       color: #fff;
@@ -130,13 +132,55 @@ header {
       }
     }
 
+    button.trigger {
+      background: $blue;
+      display: none;
+    }
+
+    .trigger-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 2px);
+      right: 0px;
+      width: 180px;
+      padding: 4px 0px;
+      background: $text-dark;
+      border-radius: 5px;
+      box-shadow: 0px 5px 20px rgba(102, 154, 255, 0.1);
+      z-index: 100000;
+
+      .trigger-item {
+        width: 100%;
+        padding: 10px 0px;
+        margin: 0px 0px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        @include transition(0.5s);
+
+        p.trigger {
+          color: #fff;
+          font-size: 0.6em;
+          text-transform: uppercase;
+          font-weight: 500;
+          letter-spacing: 1px;
+          width: 80%;
+          margin: auto;
+        }
+      }
+
+      .trigger-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+    }
+
     button.check-code {
       background: $blue;
     }
 
     button.save-continue:hover,
     button.check-code:hover,
-    button.upload:hover {
+    button.upload:hover,
+    button.trigger:hover {
       transform: scale(0.95);
     }
   }
@@ -409,6 +453,64 @@ div.blocks-title.open {
   }
 }
 
+/* Animatronics Panel */
+
+.motor-control {
+  width: calc(100% - 40px);
+  margin: 5px auto;
+
+  p.info {
+    font-weight: 400;
+    color: $text-dark;
+    font-size: 0.85em;
+    padding: 2px 0px;
+
+    span {
+      color: $text-dark;
+      font-size: 1em;
+      font-weight: 600;
+    }
+  }
+
+  input[type="number"] {
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 5px;
+    width: calc(100% - 20px);
+  }
+
+  .slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 10px;
+    border-radius: 15px;
+    background: $tab-gray;
+    outline: none;
+    opacity: 1;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0px 0px 10px rgba(102, 154, 255, 0.1);
+    cursor: pointer;
+  }
+
+  .slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0px 0px 10px rgba(102, 154, 255, 0.1);
+    cursor: pointer;
+  }
+}
+
 /* Blocks */
 .blocks-container {
   width: calc(100%);
@@ -478,6 +580,12 @@ div.blocks-title.open {
 
   select > option {
     font-family: $mono;
+  }
+
+  i.fas {
+    font-size: 0.6em;
+    color: #fff;
+    margin: 2px;
   }
 }
 
@@ -1003,9 +1111,96 @@ STORY READING
 }
 
 .external-console {
+  position: relative;
   width: calc(100% - 20px);
   height: calc(100% - (14.0625vw - 40px) - (18.75vw - 40px) - 60px);
-  background: $tab-gray;
+  background: $light-gray;
   margin: 10px;
   border-radius: 5px;
+
+  .listening-active {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 80px;
+    height: 25px;
+    border-radius: 15px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    @include transition(0.5s);
+
+    span {
+      color: $text-dark;
+      margin: 0;
+      font-size: 0.65em;
+
+      .fas {
+        color: $red;
+        margin-right: 5px;
+      }
+    }
+
+    @keyframes listen-bubble-red {
+      0% {
+        box-shadow: 0 0 0 0rem rgba(255, 102, 102, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 0 0.4rem rgba(255, 102, 102, 0.3);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0rem rgba(255, 102, 102, 0.3);
+      }
+    }
+
+    .circle {
+      margin-left: 8px;
+      height: 6px;
+      width: 6px;
+      border-radius: 100%;
+      background: $red;
+      animation: listen-bubble-red 1s infinite;
+    }
+  }
+
+  .listening-active:hover {
+    box-shadow: 0 0 0 0.2rem rgba(255, 102, 102, 0.3);
+  }
+
+  .monitor-display {
+    position: absolute;
+    width: calc(100% - 20px);
+    height: calc(100% - 52px);
+    top: 42px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background: #fff;
+    border-radius: 5px;
+    overflow: auto;
+
+    p.message {
+      width: calc(100% - 30px);
+      font-size: 0.75em;
+      font-weight: 400;
+      color: $text-dark;
+      margin: 5px auto;
+      border-radius: 5px;
+    }
+
+    .fas,
+    .far,
+    .fab {
+      margin-right: 5px;
+      color: $green;
+      font-size: 0.9em;
+    }
+
+    p.message:first-of-type {
+      margin-top: 15px;
+    }
+  }
 }

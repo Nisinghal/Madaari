@@ -162,10 +162,7 @@ $(document).ready(function() {
   $("button.generate-animation").click(function() {
     let avatar = $(".avatar .selected").html();
     let action = $(".actions .selected").html();
-    $(".blocks-title").removeClass("open");
-    $(".blocks-container").removeClass("open");
-    $(".action-container").addClass("open");
-    $(".actions-tab").addClass("open");
+    openActionsTab();
     $(".panel .block.animation input.avatar").val(avatar);
     $(".panel .block.animation input.action").val(action);
     $(".panel .block.animation").addClass("generate");
@@ -175,6 +172,7 @@ $(document).ready(function() {
   });
 
   $(".board").on("click", ".block.animation", function(e) {
+    openAnimationPanel();
     let avatar = $(this)
       .find("input.avatar")
       .val();

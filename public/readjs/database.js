@@ -1,6 +1,7 @@
+var ref = firebase.database().ref();
+
 $(document).ready(function() {
   var savedStory;
-  var ref = firebase.database().ref();
   ref.on("value", function(data) {
     savedStory = data.val().story;
     if (savedStory.length > 0) {
@@ -12,5 +13,12 @@ $(document).ready(function() {
     } else {
       $("p.story-paragraph").text("No story in database");
     }
+
+    readActions = data.val().actions;
+    if (readActions) {
+      $(".read.trigger").css("display", "block");
+      populateTriggerMenu();
+    }
+    readCues = data.val().cues;
   });
 });

@@ -150,6 +150,17 @@ $overlap: #ffc38b;
   }
 }
 
+.reading-player {
+  .animation-expression {
+    display: none;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+
+  .animation-stick-figure {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
 .animation-expression {
   width: 120px;
   height: 120px;
@@ -233,6 +244,10 @@ button.fill {
   border-radius: 5px;
   cursor: pointer;
   @include transition(0.5s);
+}
+
+button.fill.generate-motor-block {
+  margin: 20px 0px;
 }
 
 button.fill:hover {

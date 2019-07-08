@@ -3,6 +3,10 @@ var ref = firebase.database().ref();
 function uploadProgram(cues, actions) {
   ref.child("actions").set(actions);
   ref.child("cues").set(cues);
+  $(".program.upload").html('<i class="fas fa-check"></i> Uploaded');
+  setTimeout(function() {
+    $(".program.upload").html('<i class="fas fa-cloud-upload-alt"></i> Upload');
+  }, 2000);
 }
 
 $(document).ready(function() {

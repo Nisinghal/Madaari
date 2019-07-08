@@ -1,21 +1,60 @@
+function openCuesTab() {
+  $(".blocks-title").removeClass("open");
+  $(".blocks-container").removeClass("open");
+  $(".cue-container").addClass("open");
+  $(".cues").addClass("open");
+}
+
+function openActionsTab() {
+  $(".blocks-title").removeClass("open");
+  $(".blocks-container").removeClass("open");
+  $(".action-container").addClass("open");
+  $(".actions-tab").addClass("open");
+}
+
+function openControlTab() {
+  $(".blocks-title").removeClass("open");
+  $(".blocks-container").removeClass("open");
+  $(".control-container").addClass("open");
+  $(".control").addClass("open");
+}
+
+function openMusicPanel() {
+  $(".access-panel").addClass("collapse");
+  $(".music-console").removeClass("collapse");
+  $(".access-story").css("width", "calc(50px - 7.5px)");
+  $(".consoles").css("width", "calc(350px - 10px)");
+  $(".console").css("height", "calc(8% - 5px)");
+  $(".music-console").css("height", "calc(84% - 5px)");
+}
+
+function openAnimationPanel() {
+  $(".access-panel").addClass("collapse");
+  $(".animation-console").removeClass("collapse");
+  $(".access-story").css("width", "calc(50px - 7.5px)");
+  $(".consoles").css("width", "calc(350px - 10px)");
+  $(".console").css("height", "calc(8% - 5px)");
+  $(".animation-console").css("height", "calc(84% - 5px)");
+}
+
+function openTerminalPanel() {
+  $(".access-panel").addClass("collapse");
+  $(".terminal-console").removeClass("collapse");
+  $(".access-story").css("width", "calc(50px - 7.5px)");
+  $(".consoles").css("width", "calc(350px - 10px)");
+  $(".console").css("height", "calc(8% - 5px)");
+  $(".terminal-console").css("height", "calc(84% - 5px)");
+}
+
 $(document).ready(function() {
   $(".blocks-title.cues").click(function() {
-    $(".blocks-title").removeClass("open");
-    $(".blocks-container").removeClass("open");
-    $(".cue-container").addClass("open");
-    $(".cues").addClass("open");
+    openCuesTab();
   });
   $(".blocks-title.actions-tab").click(function() {
-    $(".blocks-title").removeClass("open");
-    $(".blocks-container").removeClass("open");
-    $(".action-container").addClass("open");
-    $(".actions-tab").addClass("open");
+    openActionsTab();
   });
   $(".blocks-title.control").click(function() {
-    $(".blocks-title").removeClass("open");
-    $(".blocks-container").removeClass("open");
-    $(".control-container").addClass("open");
-    $(".control").addClass("open");
+    openControlTab();
   });
 
   /* Story, console panel switching */
@@ -31,30 +70,15 @@ $(document).ready(function() {
   });
 
   $(".music-console.collapse").click(function() {
-    $(".access-panel").addClass("collapse");
-    $(".music-console").removeClass("collapse");
-    $(".access-story").css("width", "calc(50px - 7.5px)");
-    $(".consoles").css("width", "calc(350px - 10px)");
-    $(".console").css("height", "calc(8% - 5px)");
-    $(".music-console").css("height", "calc(84% - 5px)");
+    openMusicPanel();
   });
 
   $(".animation-console.collapse").click(function() {
-    $(".access-panel").addClass("collapse");
-    $(".animation-console").removeClass("collapse");
-    $(".access-story").css("width", "calc(50px - 7.5px)");
-    $(".consoles").css("width", "calc(350px - 10px)");
-    $(".console").css("height", "calc(8% - 5px)");
-    $(".animation-console").css("height", "calc(84% - 5px)");
+    openAnimationPanel();
   });
 
   $(".terminal-console.collapse").click(function() {
-    $(".access-panel").addClass("collapse");
-    $(".terminal-console").removeClass("collapse");
-    $(".access-story").css("width", "calc(50px - 7.5px)");
-    $(".consoles").css("width", "calc(350px - 10px)");
-    $(".console").css("height", "calc(8% - 5px)");
-    $(".terminal-console").css("height", "calc(84% - 5px)");
+    openTerminalPanel();
   });
 
   /* Keyword Select */
@@ -99,10 +123,7 @@ $(document).ready(function() {
   });
 
   $(".access-story").on("click", ".generate-keyword-button", function(e) {
-    $(".blocks-title").removeClass("open");
-    $(".blocks-container").removeClass("open");
-    $(".cue-container").addClass("open");
-    $(".cues").addClass("open");
+    openCuesTab();
     let text = window.getSelection().toString();
     $(".panel .block.keyword input.word").val(text);
     $(".panel .block.keyword").addClass("generate");
