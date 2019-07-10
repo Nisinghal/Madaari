@@ -34,6 +34,10 @@ recognition.onresult = function(event) {
   var current = event.resultIndex;
   var transcript = event.results[current][0].transcript;
   console.log(transcript);
+  let actionInd = checkForEvent(readCues, transcript, theExpression);
+  if (actionInd > -1) {
+    triggerAction(readActions[actionInd]);
+  }
   speechRecog = false;
 };
 

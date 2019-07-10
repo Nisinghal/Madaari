@@ -1,5 +1,12 @@
 var blockNamesThen = ["delay", "motor", "animation", "repeat"];
-var blockNamesIf = ["keyword", "music", "expression", "followed-by", "or"];
+var blockNamesIf = [
+  "keyword",
+  "music",
+  "expression",
+  "followed-by",
+  "or",
+  "start"
+];
 var droppables = ["ifthen", "repeat", "trash"];
 
 function distance(x1, y1, x2, y2) {
@@ -40,7 +47,7 @@ function findOverlap(centerX, centerY, x, y) {
       ] = returnBlockInfo($(this));
       let dist = distance(centerX, centerY, thisCenterX, thisCenterY);
       let blockArea = distance(centerX, centerY, x, y);
-      if (0 < dist && dist < blockArea + 10) {
+      if (0 < dist && dist < blockArea + 30) {
         domElement = $(this);
         result = "overlap";
         return;
@@ -74,6 +81,7 @@ function dropAreaPaddingFix(dropArea) {
 }
 
 function dragHover(dragged) {
+  compileHide();
   let [blockType, x, y, centerx, centery] = returnBlockInfo(dragged);
   let [action, element] = findOverlap(centerx, centery, x, y);
   if (action == "overlap") {

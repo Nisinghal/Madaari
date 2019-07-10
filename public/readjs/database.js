@@ -8,8 +8,8 @@ $(document).ready(function() {
       $(".read.trigger").css("display", "block");
       populateTriggerMenu();
     }
-
-    readCues = data.val().cues;
+    console.log(data.val().cues);
+    readCues = parseCues(data.val().cues);
     allKeywords = getCueParameter(readCues, "keyword");
     savedStory = data.val().story;
     if (savedStory.length > 0) {
@@ -34,6 +34,11 @@ $(document).ready(function() {
       }
     } else {
       $("p.story-paragraph").text("No story in database");
+    }
+
+    let actionInd = checkForStartEvent(readCues);
+    if (actionInd > -1) {
+      triggerAction(readActions[actionInd]);
     }
   });
 });

@@ -114,6 +114,8 @@ header {
     button.check-code,
     button.upload,
     button.trigger {
+      position: relative;
+      top: 0;
       padding: 10px 15px;
       background: $green;
       color: #fff;
@@ -124,7 +126,8 @@ header {
       font-size: 0.7em;
       outline: none;
       border-radius: 5px;
-      @include transition(0.5s);
+      border-bottom: 4px solid rgba(0, 0, 0, 0.1);
+      @include transition(0.2s);
       cursor: pointer;
 
       i {
@@ -137,7 +140,26 @@ header {
       display: none;
     }
 
-    .trigger-menu {
+    button.check-code {
+      background: $blue;
+    }
+
+    button.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    button.save-continue:active,
+    button.check-code:active,
+    button.upload:active,
+    button.trigger:active {
+      top: 4px;
+      border-bottom: 0px solid rgba(0, 0, 0, 0.1);
+      //transform: scale(0.95);
+    }
+
+    .trigger-menu,
+    .code-console {
       display: none;
       position: absolute;
       top: calc(100% + 2px);
@@ -149,7 +171,8 @@ header {
       box-shadow: 0px 5px 20px rgba(102, 154, 255, 0.1);
       z-index: 100000;
 
-      .trigger-item {
+      .trigger-item,
+      .compile-item {
         width: 100%;
         padding: 10px 0px;
         margin: 0px 0px;
@@ -157,7 +180,8 @@ header {
         cursor: pointer;
         @include transition(0.5s);
 
-        p.trigger {
+        p.trigger,
+        p.compile-title {
           color: #fff;
           font-size: 0.6em;
           text-transform: uppercase;
@@ -173,15 +197,47 @@ header {
       }
     }
 
-    button.check-code {
-      background: $blue;
-    }
+    .code-console {
+      top: calc(100% - 5px);
+      opacity: 0;
+      width: 180px;
+      background: #fff;
+      left: 0;
+      max-height: 400px;
+      overflow: auto;
+      box-shadow: 0px 5px 20px rgba(102, 154, 255, 0.25);
+      @include transition(0.3s);
 
-    button.save-continue:hover,
-    button.check-code:hover,
-    button.upload:hover,
-    button.trigger:hover {
-      transform: scale(0.95);
+      .compile-item {
+        padding: 5px 0px;
+
+        p.compile-title {
+          width: 85%;
+          color: $text-dark;
+
+          i.error {
+            color: $red;
+          }
+
+          i.success {
+            color: $green;
+          }
+
+          i.warn {
+            color: $yellow;
+          }
+        }
+
+        p.compile-text {
+          font-size: 0.65em;
+          color: $text-light;
+          font-weight: 400;
+          width: 85%;
+          margin: auto;
+          margin-top: 5px;
+          line-height: 1;
+        }
+      }
     }
   }
 }
@@ -199,13 +255,13 @@ header {
     padding: 8px 12px;
     min-width: 70px;
     text-align: center;
-    background: $light-gray;
+    background: #fff;
     color: $text-light;
     font-family: $sans;
     margin: 0px 10px;
     font-size: 1em;
     font-weight: 400;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     @include transition(0.5s);
 
@@ -240,7 +296,7 @@ header {
   }
 
   .tab:hover {
-    background: $tab-gray;
+    background: $light-gray;
 
     .number {
       background: $text-dark;
@@ -254,9 +310,10 @@ header {
   }
 
   .selected {
-    background: $primary-color !important;
-    color: #fff !important;
+    background: #fff !important;
+    color: $text-dark !important;
     font-weight: 500;
+    border: 2px solid rgba(102, 154, 255, 0.2);
   }
 }
 
@@ -589,6 +646,18 @@ div.blocks-title.open {
   }
 }
 
+.board {
+  .block {
+    transform: scale(0.9);
+  }
+
+  .drop-area {
+    .block {
+      transform: scale(1);
+    }
+  }
+}
+
 span {
   color: #fff;
   font-size: 0.7em;
@@ -632,6 +701,10 @@ span {
 .control-block.or {
   padding: 5px 5px;
   background: $yellow;
+}
+
+.cue-block.start {
+  padding: 5px 5px;
 }
 
 .control-block.repeat {
@@ -679,7 +752,7 @@ span {
   right: 20px;
   height: auto;
   width: auto;
-  padding: 40px;
+  padding: 20px;
   background: none;
   border: none;
   cursor: auto;
@@ -783,7 +856,7 @@ STORY
       position: relative;
       top: calc(50% - 2px);
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) scale(0.9);
       color: #fff;
     }
   }
@@ -1139,6 +1212,7 @@ STORY READING
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    z-index: 10000;
     @include transition(0.5s);
 
     span {
@@ -1193,7 +1267,7 @@ STORY READING
 
     p.message {
       width: calc(100% - 30px);
-      font-size: 0.75em;
+      font-size: 0.7em;
       font-weight: 400;
       color: $text-dark;
       margin: 5px auto;

@@ -124,6 +124,8 @@ function getCueBlockDetails(block) {
     return ["expression", cue];
   } else if (blockType == "or") {
     return ["or"];
+  } else if (blockType == "start") {
+    return ["start", "true"];
   }
 }
 
@@ -161,7 +163,7 @@ $(document).ready(function() {
     executeEvents(e);
   });
 
-  $(".program.upload").click(function() {
+  $(".program.upload").click(function(e) {
     let cues = [];
     let actions = [];
     $(".board")
@@ -174,5 +176,6 @@ $(document).ready(function() {
         actions.push(JSON.stringify(a));
       });
     uploadProgram(cues, actions);
+    e.stopPropagation();
   });
 });

@@ -156,6 +156,12 @@ function generateBlock(keyword, x, y, specific = "", values = blankValues) {
       <p class="name">or</p>
     </div>
     `;
+  } else if (keyword == "start") {
+    var block = `
+    <div class="block cue-block start" aria-label="start" style="${specific} top: ${y}px; left: ${x}px;">
+      <p class="name">start</p>
+    </div>
+    `;
   }
   return block;
 }
@@ -240,6 +246,8 @@ function recreateBlock(block, x, y, specific = "") {
   } else if (blockName == "followed-by") {
     return generateBlock(blockName, x, y, specific);
   } else if (blockName == "or") {
+    return generateBlock(blockName, x, y, specific);
+  } else if (blockName == "start") {
     return generateBlock(blockName, x, y, specific);
   }
   console.log("Some error");

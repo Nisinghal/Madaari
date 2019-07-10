@@ -7,6 +7,6 @@ function moveMotor(motor, speed, rotation) {
 
   $.post("/moveMotor", data, function(data, status) {});
   postMessage(
-    `Animatronics motor move command for motor ${motor}. Rotation: ${rotation} and Speed: ${speed}`
+    `Animatronics command for motor ${motor}. Rotation: ${rotation}, Speed: ${speed}`
   );
 }

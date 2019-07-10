@@ -1,3 +1,40 @@
+var ourExpressions = [
+  "Happy",
+  "Sad",
+  "Wink",
+  "Kiss",
+  "Stick-out Tongue",
+  "Surprised",
+  "Angry"
+];
+var theExpression = "None";
+
+function updateExpression(obj) {
+  let expressions = [
+    "smiley",
+    "disappointed",
+    "wink",
+    "kissing",
+    "stuckOutTongue",
+    "scream",
+    "rage"
+  ];
+  maxInd = -1;
+  for (let i = 0; i < expressions.length; i++) {
+    if (obj[expressions[i]] > 50) {
+      maxInd = i;
+      break;
+    }
+  }
+  if (maxInd > -1) {
+    theExpression = ourExpressions[maxInd];
+  } else {
+    theExpression = "None";
+  }
+}
+
+/* FROM THE EXPRESSION DETECTION MODULE */
+
 // SDK Needs to create video and canvas nodes in the DOM in order to function
 // Here we are adding those nodes a predefined div.
 var divRoot = $(".expression-stream")[0];
@@ -94,7 +131,12 @@ detector.addEventListener("onImageResultsSuccess", function(
     //     })
     // );
     $(".expression-stream .emoji").html(faces[0].emojis.dominantEmoji);
-    //console.log("Emoji: " + faces[0].emojis.dominantEmoji);
+    updateExpression(faces[0].emojis);
+    let actionInd = checkForEvent(readCues, "", theExpression);
+    if (actionInd > -1) {
+      triggerAction(readActions[actionInd]);
+    }
+    //console.log(theExpression);
     if ($("#face_video_canvas")[0] != null)
       drawFeaturePoints(image, faces[0].featurePoints);
   }

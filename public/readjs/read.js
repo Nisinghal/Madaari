@@ -1,3 +1,6 @@
+var readCues;
+var readActions;
+
 function populateTriggerMenu() {
   let nTriggers = readActions.length;
   for (let i = 0; i < nTriggers; i++) {

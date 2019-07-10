@@ -1,12 +1,27 @@
 var ref = firebase.database().ref();
 
 function uploadProgram(cues, actions) {
-  ref.child("actions").set(actions);
-  ref.child("cues").set(cues);
-  $(".program.upload").html('<i class="fas fa-check"></i> Uploaded');
-  setTimeout(function() {
-    $(".program.upload").html('<i class="fas fa-cloud-upload-alt"></i> Upload');
-  }, 2000);
+  if (compileCheck()) {
+    compileShow();
+    ref.child("actions").set(actions);
+    ref.child("cues").set(cues);
+    $(".program.upload").html('<i class="fas fa-check"></i> Uploaded');
+    setTimeout(function() {
+      $(".program.upload").html(
+        '<i class="fas fa-cloud-upload-alt"></i> Upload'
+      );
+    }, 2000);
+  } else {
+    compileShow();
+    $(".program.upload").html('<i class="fas fa-times"></i> Error');
+    $(".program.upload").css("background", "#e62b4a");
+    setTimeout(function() {
+      $(".program.upload").html(
+        '<i class="fas fa-cloud-upload-alt"></i> Upload'
+      );
+      $(".program.upload").css("background", "#57bd92");
+    }, 2000);
+  }
 }
 
 $(document).ready(function() {

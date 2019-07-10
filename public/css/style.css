@@ -64,6 +64,8 @@ header {
     header .header-buttons button.check-code,
     header .header-buttons button.upload,
     header .header-buttons button.trigger {
+      position: relative;
+      top: 0;
       padding: 10px 15px;
       background: #57bd92;
       color: #fff;
@@ -74,10 +76,11 @@ header {
       font-size: 0.7em;
       outline: none;
       border-radius: 5px;
-      -webkit-transition: all 0.5s ease;
-      -moz-transition: all 0.5s ease;
-      -o-transition: all 0.5s ease;
-      transition: all 0.5s ease;
+      border-bottom: 4px solid rgba(0, 0, 0, 0.1);
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease;
       cursor: pointer; }
       header .header-buttons button.save-continue i,
       header .header-buttons button.check-code i,
@@ -87,7 +90,19 @@ header {
     header .header-buttons button.trigger {
       background: #669aff;
       display: none; }
-    header .header-buttons .trigger-menu {
+    header .header-buttons button.check-code {
+      background: #669aff; }
+    header .header-buttons button.disabled {
+      opacity: 0.5;
+      pointer-events: none; }
+    header .header-buttons button.save-continue:active,
+    header .header-buttons button.check-code:active,
+    header .header-buttons button.upload:active,
+    header .header-buttons button.trigger:active {
+      top: 4px;
+      border-bottom: 0px solid rgba(0, 0, 0, 0.1); }
+    header .header-buttons .trigger-menu,
+    header .header-buttons .code-console {
       display: none;
       position: absolute;
       top: calc(100% + 2px);
@@ -99,7 +114,10 @@ header {
       -webkit-box-shadow: 0px 5px 20px rgba(102, 154, 255, 0.1);
       box-shadow: 0px 5px 20px rgba(102, 154, 255, 0.1);
       z-index: 100000; }
-      header .header-buttons .trigger-menu .trigger-item {
+      header .header-buttons .trigger-menu .trigger-item,
+      header .header-buttons .trigger-menu .compile-item,
+      header .header-buttons .code-console .trigger-item,
+      header .header-buttons .code-console .compile-item {
         width: 100%;
         padding: 10px 0px;
         margin: 0px 0px;
@@ -109,7 +127,14 @@ header {
         -moz-transition: all 0.5s ease;
         -o-transition: all 0.5s ease;
         transition: all 0.5s ease; }
-        header .header-buttons .trigger-menu .trigger-item p.trigger {
+        header .header-buttons .trigger-menu .trigger-item p.trigger,
+        header .header-buttons .trigger-menu .trigger-item p.compile-title,
+        header .header-buttons .trigger-menu .compile-item p.trigger,
+        header .header-buttons .trigger-menu .compile-item p.compile-title,
+        header .header-buttons .code-console .trigger-item p.trigger,
+        header .header-buttons .code-console .trigger-item p.compile-title,
+        header .header-buttons .code-console .compile-item p.trigger,
+        header .header-buttons .code-console .compile-item p.compile-title {
           color: #fff;
           font-size: 0.6em;
           text-transform: uppercase;
@@ -117,17 +142,42 @@ header {
           letter-spacing: 1px;
           width: 80%;
           margin: auto; }
-      header .header-buttons .trigger-menu .trigger-item:hover {
+      header .header-buttons .trigger-menu .trigger-item:hover,
+      header .header-buttons .code-console .trigger-item:hover {
         background: rgba(255, 255, 255, 0.1); }
-    header .header-buttons button.check-code {
-      background: #669aff; }
-    header .header-buttons button.save-continue:hover,
-    header .header-buttons button.check-code:hover,
-    header .header-buttons button.upload:hover,
-    header .header-buttons button.trigger:hover {
-      -webkit-transform: scale(0.95);
-      -ms-transform: scale(0.95);
-      transform: scale(0.95); }
+    header .header-buttons .code-console {
+      top: calc(100% - 5px);
+      opacity: 0;
+      width: 180px;
+      background: #fff;
+      left: 0;
+      max-height: 400px;
+      overflow: auto;
+      -webkit-box-shadow: 0px 5px 20px rgba(102, 154, 255, 0.25);
+      box-shadow: 0px 5px 20px rgba(102, 154, 255, 0.25);
+      -webkit-transition: all 0.3s ease;
+      -moz-transition: all 0.3s ease;
+      -o-transition: all 0.3s ease;
+      transition: all 0.3s ease; }
+      header .header-buttons .code-console .compile-item {
+        padding: 5px 0px; }
+        header .header-buttons .code-console .compile-item p.compile-title {
+          width: 85%;
+          color: #2a3135; }
+          header .header-buttons .code-console .compile-item p.compile-title i.error {
+            color: #e62b4a; }
+          header .header-buttons .code-console .compile-item p.compile-title i.success {
+            color: #57bd92; }
+          header .header-buttons .code-console .compile-item p.compile-title i.warn {
+            color: #ffaf66; }
+        header .header-buttons .code-console .compile-item p.compile-text {
+          font-size: 0.65em;
+          color: #a1b0b9;
+          font-weight: 400;
+          width: 85%;
+          margin: auto;
+          margin-top: 5px;
+          line-height: 1; }
 
 .tabs {
   width: 400px;
@@ -148,13 +198,13 @@ header {
     padding: 8px 12px;
     min-width: 70px;
     text-align: center;
-    background: #e8eef1;
+    background: #fff;
     color: #a1b0b9;
     font-family: "Roboto", sans-serif;
     margin: 0px 10px;
     font-size: 1em;
     font-weight: 400;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -191,7 +241,7 @@ header {
         font-weight: 700;
         color: inherit; }
   .tabs .tab:hover {
-    background: #d3dde1; }
+    background: #e8eef1; }
     .tabs .tab:hover .number {
       background: #2a3135;
       color: #fff; }
@@ -199,9 +249,10 @@ header {
     margin: 15px 0px;
     color: #e8eef1; }
   .tabs .selected {
-    background: #ff6678 !important;
-    color: #fff !important;
-    font-weight: 500; }
+    background: #fff !important;
+    color: #2a3135 !important;
+    font-weight: 500;
+    border: 2px solid rgba(102, 154, 255, 0.2); }
 
 .workspace {
   position: relative;
@@ -513,6 +564,16 @@ div.blocks-title.open {
     color: #fff;
     margin: 2px; }
 
+.board .block {
+  -webkit-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  transform: scale(0.9); }
+
+.board .drop-area .block {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1); }
+
 span {
   color: #fff;
   font-size: 0.7em;
@@ -549,6 +610,9 @@ span {
   padding: 5px 5px;
   background: #ffaf66; }
 
+.cue-block.start {
+  padding: 5px 5px; }
+
 .control-block.repeat {
   width: 185px;
   background: #57bd92; }
@@ -583,7 +647,7 @@ span {
   right: 20px;
   height: auto;
   width: auto;
-  padding: 40px;
+  padding: 20px;
   background: none;
   border: none;
   cursor: auto;
@@ -705,9 +769,9 @@ STORY
       position: relative;
       top: calc(50% - 2px);
       left: 50%;
-      -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
+      -webkit-transform: translate(-50%, -50%) scale(0.9);
+      -ms-transform: translate(-50%, -50%) scale(0.9);
+      transform: translate(-50%, -50%) scale(0.9);
       color: #fff; }
   .story-load-actions div:hover {
     -webkit-box-shadow: 0 0 0 0.5rem rgba(102, 154, 255, 0.3);
@@ -1057,6 +1121,7 @@ STORY READING
     -ms-flex-pack: center;
     justify-content: center;
     cursor: pointer;
+    z-index: 10000;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -1115,7 +1180,7 @@ STORY READING
     overflow: auto; }
     .external-console .monitor-display p.message {
       width: calc(100% - 30px);
-      font-size: 0.75em;
+      font-size: 0.7em;
       font-weight: 400;
       color: #2a3135;
       margin: 5px auto;
