@@ -1094,7 +1094,7 @@ STORY READING
   -ms-flex-align: start;
   align-items: flex-start; }
 
-.story-read {
+.story-reading {
   position: relative;
   width: calc(75% - 20px);
   height: calc(100% - 40px);
@@ -1102,13 +1102,15 @@ STORY READING
   margin: 20px;
   margin-right: 0px;
   padding: 0px;
-  overflow: auto;
-  overflow-x: hidden;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease; }
-  .story-read p.story-paragraph {
+  .story-reading .story-read {
+    overflow: auto;
+    margin-top: 15px;
+    height: calc(100% - 40px); }
+  .story-reading p.story-paragraph {
     margin: 15px auto;
     width: calc(100% - 40px);
     color: #2a3135;
@@ -1116,7 +1118,7 @@ STORY READING
     font-weight: 400;
     line-height: 1.75;
     text-align: justify; }
-    .story-read p.story-paragraph span.keyword {
+    .story-reading p.story-paragraph span.keyword {
       font-size: 1em;
       padding: 3px 5px;
       background: rgba(102, 154, 255, 0.1);
@@ -1127,6 +1129,43 @@ STORY READING
       -moz-transition: all 0.5s ease;
       -o-transition: all 0.5s ease;
       transition: all 0.5s ease; }
+  .story-reading .speech-transcript {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    padding: 10px 12px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    color: #fff;
+    font-size: 0.8em;
+    -webkit-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    transform: translate(-50%, 0); }
+  .story-reading .autoscroll {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 0.7em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #a1b0b9;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
+    .story-reading .autoscroll i {
+      cursor: pointer;
+      color: #ff6678; }
+    .story-reading .autoscroll i.fa-minus {
+      margin-right: 10px; }
+    .story-reading .autoscroll i.fa-plus {
+      margin-left: 5px; }
+    .story-reading .autoscroll span.value {
+      font-size: 1em;
+      font-weight: 600;
+      color: #2a3135; }
 
 .collapse-button {
   position: absolute;
@@ -1406,6 +1445,8 @@ header.dark-mode {
 
 .workspace.dark-mode {
   background: #000; }
+  .workspace.dark-mode .autoscroll span.value {
+    color: #fff; }
   .workspace.dark-mode .story-read {
     background: none; }
     .workspace.dark-mode .story-read .story-paragraph {

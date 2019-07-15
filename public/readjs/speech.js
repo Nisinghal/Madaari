@@ -1,3 +1,11 @@
+function printTranscript(transcript) {
+  $(".speech-transcript").text(transcript);
+  $(".speech-transcript").css("display", "block");
+  setTimeout(function() {
+    $(".speech-transcript").css("display", "none");
+  }, 5000);
+}
+
 try {
   var SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -34,6 +42,7 @@ recognition.onresult = function(event) {
   var current = event.resultIndex;
   var transcript = event.results[current][0].transcript;
   console.log(transcript);
+  printTranscript(transcript);
   let actionInd = checkForEvent(readCues, transcript, theExpression);
   if (actionInd > -1) {
     triggerAction(readActions[actionInd]);

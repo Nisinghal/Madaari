@@ -1176,7 +1176,7 @@ STORY READING
   align-items: flex-start;
 }
 
-.story-read {
+.story-reading {
   position: relative;
   width: calc(75% - 20px);
   height: calc(100% - 40px);
@@ -1184,9 +1184,13 @@ STORY READING
   margin: 20px;
   margin-right: 0px;
   padding: 0px;
-  overflow: auto;
-  overflow-x: hidden;
   @include transition(0.5s);
+
+  .story-read {
+    overflow: auto;
+    margin-top: 15px;
+    height: calc(100% - 40px);
+  }
 
   p.story-paragraph {
     margin: 15px auto;
@@ -1205,6 +1209,50 @@ STORY READING
       border-radius: 4px;
       color: inherit;
       @include transition(0.5s);
+    }
+  }
+
+  .speech-transcript {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    padding: 10px 12px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    color: #fff;
+    font-size: 0.8em;
+    transform: translate(-50%, 0);
+  }
+
+  .autoscroll {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 0.7em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $text-light;
+    user-select: none;
+
+    i {
+      cursor: pointer;
+      color: $primary-color;
+    }
+
+    i.fa-minus {
+      margin-right: 10px;
+    }
+
+    i.fa-plus {
+      margin-left: 5px;
+    }
+
+    span.value {
+      font-size: 1em;
+      font-weight: 600;
+      color: $text-dark;
     }
   }
 }
@@ -1496,6 +1544,12 @@ header.dark-mode {
 
 .workspace.dark-mode {
   background: #000;
+
+  .autoscroll {
+    span.value {
+      color: #fff;
+    }
+  }
 
   .story-read {
     background: none;
