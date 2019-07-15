@@ -29,6 +29,9 @@
         <i class="fas fa-save"></i> Save Story
       </button>
       <%} %> <% if(tab=='program') {%>
+      <button class="program save-code tooltip" aria-label="Save Program">
+        <i class="fas fa-save"></i>
+      </button>
       <button class="program check-code">
         <i class="fas fa-flask"></i> Check
       </button>
@@ -37,6 +40,10 @@
         <i class="fas fa-cloud-upload-alt"></i> Upload
       </button>
       <%} %> <% if(tab=='reading') {%>
+      <p class="dark-mode-label">Dark Mode</p>
+      <div class="dark-switch">
+        <div class="toggler"></div>
+      </div>
       <button class="read trigger"><i class="fas fa-play"></i> Trigger</button>
       <div class="trigger-menu"></div>
       <%} %>

@@ -15,6 +15,13 @@ function decodeExecution(obj) {
     setTimeout(function() {
       moveMotor(motor, speed, rotation);
     }, obj.delay);
+  } else if (obj.type == "Audio") {
+    let source = obj.params[0];
+    let start = obj.params[1];
+    let stop = obj.params[2];
+    setTimeout(function() {
+      playMusic(source, start, stop);
+    }, obj.delay);
   } else if (obj.type == "Repeat") {
     let events = obj.repeatEvents;
     setTimeout(function() {

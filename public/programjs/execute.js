@@ -45,13 +45,26 @@ function returnToPerform(block, delayValue = 0) {
     return {
       execute: function(delay) {
         setTimeout(function() {
-          console.log(motor, speed, rotation);
           moveMotor(motor, speed, rotation);
         }, delay);
       },
       delay: delayValue,
       params: [motor, speed, rotation],
       type: "Motor"
+    };
+  } else if (blockType == "audio") {
+    let source = block.find("input.audio-source").val();
+    let start = parseInt(block.find("input.audio-play").val());
+    let stop = parseInt(block.find("input.audio-pause").val());
+    return {
+      execute: function(delay) {
+        setTimeout(function() {
+          playMusic(source, start, stop);
+        }, delay);
+      },
+      delay: delayValue,
+      params: [source, start, stop],
+      type: "Audio"
     };
   } else if (blockType == "repeat") {
     let parseResult = repeatBlockParse(block);

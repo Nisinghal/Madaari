@@ -8,7 +8,8 @@ var blockMapping = [
   "delay",
   "repeat",
   "followed-by",
-  "or"
+  "or",
+  "audio"
 ];
 
 var blockTitle = [
@@ -21,7 +22,8 @@ var blockTitle = [
   "delay",
   "repeat",
   "followed by",
-  "or"
+  "or",
+  "audio"
 ];
 
 var blockTypes = [
@@ -34,7 +36,8 @@ var blockTypes = [
   "control-block",
   "control-block",
   "cue-block",
-  "cue-block"
+  "cue-block",
+  "action-block"
 ];
 
 let blankValues = ["", "", "", "", "", "", "", "", "", ""];
@@ -110,6 +113,26 @@ function generateBlock(keyword, x, y, specific = "", values = blankValues) {
       }"/>
     </div>
     `;
+  } else if (keyword == "audio") {
+    var block = `
+    <div class="block audio ${blockType}" aria-label="audio" style="${specific} top: ${y}px; left: ${x}px;">
+        <p class="name">${blockTitle[keywordIndex]}</p>
+        <input
+        type="text"
+        class="medium-input audio-source"
+        placeholder="Source"
+        value="${values[0]}"
+      />
+      <i class="fas fa-play"></i
+      ><input type="text" class="xs-input audio-play" placeholder="0" value="${
+        values[1]
+      }"/>
+      <i class="fas fa-pause"></i
+      ><input type="text" class="xs-input audio-pause" placeholder="0" value="${
+        values[2]
+      }"/>
+    </div>
+    `;
   } else if (keyword == "ifthen") {
     var block = `
         <div class="block control-block ifthen" aria-label="${keyword}" style="${specific} top: ${y}px; left: ${x}px;">
@@ -126,12 +149,11 @@ function generateBlock(keyword, x, y, specific = "", values = blankValues) {
   } else if (keyword == "delay") {
     var block = ` 
     <div class="block control-block delay" aria-label="${keyword}" style="${specific} top: ${y}px; left: ${x}px;">
-      <p class="name">delay</p>
-      <label for="delay-time">Wait</label
+      <label for="delay-time" class="thick">wait for</label
       ><input class="small-input" type="number" value="${
         values[0]
       }" placeholder="00" />
-      <span>seconds</span>
+      <span class="thick">seconds</span>
     </div> `;
   } else if (keyword == "repeat") {
     var block = `
@@ -221,6 +243,18 @@ function recreateBlock(block, x, y, specific = "") {
     }
     if (block.children("input:nth-child(3)").val()) {
       values[1] = block.children("input:nth-child(3)").val();
+    }
+    return generateBlock(blockName, x, y, specific, values);
+  } else if (blockName == "audio") {
+    let values = ["", "", ""];
+    if (block.children("input:nth-child(2)").val()) {
+      values[0] = block.children("input:nth-child(2)").val();
+    }
+    if (block.children("input:nth-child(4)").val()) {
+      values[1] = block.children("input:nth-child(4)").val();
+    }
+    if (block.children("input:nth-child(6)").val()) {
+      values[2] = block.children("input:nth-child(6)").val();
     }
     return generateBlock(blockName, x, y, specific, values);
   } else if (blockName == "delay") {

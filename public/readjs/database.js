@@ -2,6 +2,7 @@ var ref = firebase.database().ref();
 
 $(document).ready(function() {
   var savedStory;
+  ref.child("projection").set(["None", "None"]);
   ref.on("value", function(data) {
     readActions = data.val().actions;
     if (readActions) {
@@ -19,12 +20,15 @@ $(document).ready(function() {
         let paragraph = [];
         let words = paras[i].split(" ");
         for (let j = 0; j < words.length; j++) {
-          if (
-            allKeywords.indexOf(
-              words[j].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").toLowerCase()
-            ) > -1
-          ) {
-            paragraph.push(`<span class="keyword">${words[j]}</span>`);
+          keywordInd = allKeywords.indexOf(
+            words[j].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").toLowerCase()
+          );
+          if (keywordInd > -1) {
+            paragraph.push(
+              `<span class="keyword ${allKeywords[keywordInd]}">${
+                words[j]
+              }</span>`
+            );
           } else {
             paragraph.push(words[j]);
           }

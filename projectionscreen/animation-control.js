@@ -1,6 +1,7 @@
 var avatars = ["Expression", "Stick Figure"];
 var actions = [["Happy", "Sad", "Surprised", "Angry"], ["Walk", "Run", "Jump"]];
 
+/* Expression */
 var mouth = Snap("#mouth");
 var mouthPath = mouth.path("M 0 0 q 30 00 60 0");
 mouthPath.attr({
@@ -62,23 +63,22 @@ function selectAvatar(name) {
     if (name == "Expression") {
       $(".animation-avatar").css("display", "none");
       $(".animation-expression").css("display", "block");
-      expressionHappy();
     } else if (name == "Stick Figure") {
       $(".animation-avatar").css("display", "none");
       $(".animation-stick-figure").css("display", "block");
-      stickFigureWalk();
     }
   }
 }
 
 function selectAction(avatar, action) {
+  if (avatar == "None" && action == "None") {
+    $(".animation-avatar").css("display", "none");
+  }
   let index = avatars.indexOf(avatar);
   if (index > -1) {
     let actionInd = actions[index].indexOf(action);
     if (actionInd > -1) {
       selectAvatar(avatar);
-      let projectionScreen = [avatar, action];
-      ref.child("projection").set(projectionScreen);
       if (avatar == "Expression") {
         if (action == "Happy") {
           expressionHappy();
@@ -102,4 +102,8 @@ function selectAction(avatar, action) {
   }
 }
 
-$(document).ready(function() {});
+$(document).ready(function() {
+  $(".run button").click(function() {
+    $(".run").css("display", "none");
+  });
+});

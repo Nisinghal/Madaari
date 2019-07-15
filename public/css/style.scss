@@ -20,6 +20,7 @@ $yellow: #ffaf66;
 $highlight: #ffc38b;
 $overlap: #ffc38b;
 $red: #e62b4a;
+$orange: #ffa06f;
 
 /* Dotted Background */
 // Colors
@@ -105,6 +106,9 @@ header {
   }
 
   .header-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     position: absolute;
     top: 50%;
     right: 25px;
@@ -112,6 +116,7 @@ header {
 
     button.save-continue,
     button.check-code,
+    button.save-code,
     button.upload,
     button.trigger {
       position: relative;
@@ -127,6 +132,7 @@ header {
       outline: none;
       border-radius: 5px;
       border-bottom: 4px solid rgba(0, 0, 0, 0.1);
+      margin: 0px 2px;
       @include transition(0.2s);
       cursor: pointer;
 
@@ -142,6 +148,21 @@ header {
 
     button.check-code {
       background: $blue;
+    }
+
+    button.save-code {
+      background: none;
+      color: $blue;
+      border: 2px solid rgba(102, 154, 255, 0.1);
+
+      i {
+        margin: 0;
+        transform: scale(1.2);
+      }
+    }
+
+    button.save-code:active {
+      transform: scale(0.9);
     }
 
     button.disabled {
@@ -512,7 +533,8 @@ div.blocks-title.open {
 
 /* Animatronics Panel */
 
-.motor-control {
+.motor-control,
+.music-control {
   width: calc(100% - 40px);
   margin: 5px auto;
 
@@ -529,7 +551,8 @@ div.blocks-title.open {
     }
   }
 
-  input[type="number"] {
+  input[type="number"],
+  input[type="text"] {
     border: none;
     outline: none;
     padding: 10px;
@@ -565,6 +588,69 @@ div.blocks-title.open {
     background: #fff;
     box-shadow: 0px 0px 10px rgba(102, 154, 255, 0.1);
     cursor: pointer;
+  }
+}
+
+.music-control {
+  p.info {
+    font-size: 0.8em;
+    margin: 8px 4px;
+  }
+
+  .jukebox {
+    width: calc(100% - 10px);
+    padding: 5px;
+    background: #fff;
+    border-radius: 5px;
+    outline: none;
+    display: none;
+    align-items: center;
+    flex-wrap: wrap;
+
+    i {
+      color: $text-light;
+      padding: 2px;
+      margin: 2px;
+      cursor: pointer;
+      transform: scale(0.8);
+      @include transition(0.5s);
+    }
+
+    i:hover {
+      color: $blue;
+      transform: scale(1);
+    }
+
+    .status-box {
+      width: 100%;
+      font-size: 0.6em;
+      color: $text-light;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      margin: 0px 5px;
+    }
+
+    .source-box {
+      width: 50%;
+      height: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      padding: 5px;
+      border-radius: 20px;
+      margin: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 0.5em;
+      color: $text-light;
+      font-weight: 400;
+    }
+
+    .time-box {
+      font-size: 0.65em;
+      color: $text-dark;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
   }
 }
 
@@ -627,8 +713,12 @@ div.blocks-title.open {
     width: 30px;
   }
 
+  .xs-input {
+    width: 20px;
+  }
+
   .medium-input {
-    width: 75px;
+    width: 70px;
   }
 
   .large-input {
@@ -664,6 +754,13 @@ span {
   margin: 0px 5px;
 }
 
+.thick {
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 0.5em !important;
+}
+
 .action-block {
   background: $primary-color;
 }
@@ -695,12 +792,13 @@ span {
 
 .control-block.delay {
   background: $yellow;
+  padding: 5px 5px;
 }
 
 .control-block.followed,
 .control-block.or {
   padding: 5px 5px;
-  background: $yellow;
+  background: $orange;
 }
 
 .cue-block.start {
@@ -1079,15 +1177,16 @@ STORY READING
 }
 
 .story-read {
+  position: relative;
   width: calc(75% - 20px);
   height: calc(100% - 40px);
-  background: #fff;
   border-radius: 5px;
   margin: 20px;
   margin-right: 0px;
   padding: 0px;
   overflow: auto;
   overflow-x: hidden;
+  @include transition(0.5s);
 
   p.story-paragraph {
     margin: 15px auto;
@@ -1105,17 +1204,59 @@ STORY READING
       border: 1px solid rgba(102, 154, 255, 0.3);
       border-radius: 4px;
       color: inherit;
+      @include transition(0.5s);
     }
   }
 }
 
+.collapse-button {
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  transform: translate(-50%, -50%);
+  height: 32px;
+  width: 32px;
+  background: $blue;
+  border-radius: 100%;
+  z-index: 10000;
+  box-shadow: 4px 4px 10px rgba(102, 154, 255, 0.1);
+  cursor: pointer;
+  @include transition(0.5s);
+
+  i.arrow {
+    position: absolute;
+    top: 50%;
+    left: calc(50% + 1px);
+    transform: translate(-50%, -50%);
+    color: #fff;
+  }
+}
+
+.collapse-button:hover {
+  background: #5c8ae5;
+}
+
+.collapse-button.uncollapse {
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+
+.collapsable-items {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  @include transition(0.25s);
+}
+
 .monitoring-tabs {
+  position: relative;
   width: calc(25% - 20px);
   height: calc(100% - 20px);
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   margin: 10px;
+  border-left: 1px solid rgba(102, 154, 255, 0.2);
+  @include transition(0.5s);
 }
 
 .expression-stream {
@@ -1195,7 +1336,7 @@ STORY READING
 .external-console {
   position: relative;
   width: calc(100% - 20px);
-  height: calc(100% - (14.0625vw - 40px) - (18.75vw - 40px) - 60px);
+  height: calc(100% - (14.0625vw - 40px) - (18.75vw - 40px) - 40px);
   background: $light-gray;
   margin: 10px;
   border-radius: 5px;
@@ -1284,6 +1425,109 @@ STORY READING
 
     p.message:first-of-type {
       margin-top: 15px;
+    }
+  }
+}
+
+/* DARK READING MODE */
+
+.dark-mode-label {
+  font-size: 0.6em;
+  color: $text-light;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.dark-switch {
+  position: relative;
+  height: 30px;
+  width: 45px;
+  background: $light-gray;
+  margin: 0px 10px;
+  border-radius: 35px;
+  cursor: pointer;
+
+  .toggler {
+    height: calc(30px - 8px);
+    width: calc(30px - 8px);
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border-radius: 100%;
+    background: #fff;
+    @include smoothtransition(0.5s);
+  }
+}
+
+.dark-switch.dark-mode {
+  background: rgba(102, 154, 255, 0.2);
+
+  .toggler {
+    background: rgba(102, 154, 255, 0.75);
+  }
+}
+
+header.dark-mode {
+  background: #322b2b;
+  box-shadow: none;
+
+  .tabs {
+    .tab {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .tab:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    i.transition-arrows {
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    .selected {
+      background: none !important;
+      color: #fff !important;
+      border: 2px solid $blue !important;
+    }
+  }
+}
+
+.workspace.dark-mode {
+  background: #000;
+
+  .story-read {
+    background: none;
+
+    .story-paragraph {
+      color: #fff;
+    }
+  }
+
+  .monitoring-tabs {
+    .expression-stream {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .external-console {
+      background: #333;
+
+      .monitor-display {
+        background: #3e4143;
+
+        p.message {
+          color: #acb2b6;
+        }
+      }
+
+      .listening-active {
+        background: #3e4143;
+
+        span {
+          color: #acb2b6;
+        }
+      }
     }
   }
 }

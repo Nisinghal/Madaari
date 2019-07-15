@@ -1,7 +1,10 @@
 var readCues;
 var readActions;
 
+var dark = false;
+
 function populateTriggerMenu() {
+  $(".trigger-menu").html("");
   let nTriggers = readActions.length;
   for (let i = 0; i < nTriggers; i++) {
     $(".trigger-menu").append(
@@ -18,7 +21,47 @@ function postMessage(message, icon = "fa-chevron-right") {
   $(".monitor-display").animate({ scrollTop: scrollTo + "px" }, 1000);
 }
 
+function monitoringCollapse() {
+  $(".collapsable-items").css("opacity", "0");
+  setTimeout(function() {
+    $(".collapsable-items").css("display", "none");
+    $(".collapse-button").addClass("uncollapse");
+    $(".monitoring-tabs").css("width", "0px");
+    $(".story-read").css("width", "calc(100% - 32px - 20px)");
+  }, 250);
+}
+
+function monitoringUncollapse() {
+  $(".collapse-button").removeClass("uncollapse");
+  $(".monitoring-tabs").css("width", "calc(25% - 20px)");
+  $(".story-read").css("width", "calc(75% - 20px)");
+  setTimeout(function() {
+    $(".collapsable-items").css("display", "block");
+  }, 500);
+  setTimeout(function() {
+    $(".collapsable-items").css("opacity", "1");
+  }, 501);
+}
+
+function darkMode(set) {
+  if (set) {
+    $("header").addClass("dark-mode");
+    $(".workspace").addClass("dark-mode");
+    $(".dark-switch").addClass("dark-mode");
+    $(".logo img").attr("src", "img/LogoWhite.png");
+    $(".dark-switch .toggler").css("left", "calc(45px - 4px - 22px)");
+  } else {
+    $("header").removeClass("dark-mode");
+    $(".workspace").removeClass("dark-mode");
+    $(".dark-switch").removeClass("dark-mode");
+    $(".logo img").attr("src", "img/Logo.png");
+    $(".dark-switch .toggler").css("left", "4px");
+  }
+  return set;
+}
+
 $(document).ready(function() {
+  let collapseStatus = false;
   postMessage("Setting up reading environment");
   /* Speech Control */
   recognition.start();
@@ -39,5 +82,22 @@ $(document).ready(function() {
   $(".trigger-menu").on("click", ".trigger-item", function() {
     let selectedAction = parseInt($(this).attr("aria-label"));
     triggerAction(readActions[selectedAction]);
+  });
+  $(".collapse-button").click(function() {
+    if (collapseStatus) {
+      monitoringUncollapse();
+      collapseStatus = false;
+    } else {
+      monitoringCollapse();
+      collapseStatus = true;
+    }
+  });
+
+  $(".dark-switch").click(function() {
+    if (dark) {
+      dark = darkMode(false);
+    } else {
+      dark = darkMode(true);
+    }
   });
 });

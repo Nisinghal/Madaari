@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Madaari</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="animation.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Roboto:100,300,300i,400,400i,500,500i,700,700i,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="run"><button>Use Animation Screen</button></div>
+    <div class="projection-screen">
+      <div class="connected"></div>
+      <!-- Expression -->
+      <div class="animation-avatar animation-expression">
+        <div class="eye-left"></div>
+        <div class="eye-right"></div>
+        <div class="brow-left"></div>
+        <div class="brow-right"></div>
+        <svg id="mouth"></svg>
+      </div>
+      <!-- Stick Figure -->
+      <div class="animation-avatar animation-stick-figure">
+        <div class="stick-figure walking"></div>
+        <div class="stick-figure running"></div>
+        <div class="stick-figure jumping"></div>
+      </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyDfNn8BEwCgkp1V8nbgQjsermO8wf-cxEU",
+        authDomain: "madaari-cb7be.firebaseapp.com",
+        databaseURL: "https://madaari-cb7be.firebaseio.com",
+        projectId: "madaari-cb7be",
+        storageBucket: "",
+        messagingSenderId: "830130457469",
+        appId: "1:830130457469:web:4cb453be31dc6d9c"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
+    <script type="text/javascript" src="animation-control.js"></script>
+    <script type="text/javascript" src="database.js"></script>
+  </body>
+</html>

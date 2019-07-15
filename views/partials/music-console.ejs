@@ -1,5 +1,24 @@
 <div class="access-panel console music-console collapse">
-  <div class="content-wrapper"><p class="panel-title">Play Music</p></div>
+  <div class="content-wrapper">
+    <p class="panel-title">Play Music</p>
+    <div class="music-control">
+      <p class="info">Music Source Link (with extension)</p>
+      <input type="text" class="music-path" placeholder="Paste Link" />
+      <p class="info">Start From</p>
+      <input type="number" class="start-point" placeholder="Seconds" />
+      <p class="info">Stop At</p>
+      <input type="number" class="stop-point" placeholder="Seconds" />
+      <button class="fill generate-music-block">Generate Block</button
+      ><button class="fill test-music-params">Test Music File</button>
+      <div class="jukebox">
+        <div class="status-box"></div>
+        <div class="play-box"><i class="fas fa-play fa-sm"></i></div>
+        <div class="pause-box"><i class="fas fa-pause fa-sm"></i></div>
+        <div class="source-box"></div>
+        <div class="time-box"></div>
+      </div>
+    </div>
+  </div>
   <div class="icon-rep">
     <i class="fas fa-music"></i>
   </div>

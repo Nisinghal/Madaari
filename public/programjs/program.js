@@ -1,8 +1,67 @@
+var sortx = 0;
+var sorty = 0;
+
+function enableBlockDrag() {
+  $(".board .block")
+    .disableSelection()
+    .draggable({
+      containment: "parent",
+      drag: function(event, ui) {
+        dragHover($(this));
+      },
+      stop: function(event, ui) {
+        let [blockType, x, y, centerx, centery] = returnBlockInfo($(this));
+        let deleteBlock = dropit($(this), centerx, centery, x, y);
+        if (deleteBlock) {
+          $(this).remove();
+        }
+      }
+    });
+}
+
+function enableDropAreaSort() {
+  $(".drop-area")
+    .sortable({
+      over: function(event, ui) {
+        $(".block").removeClass("block-out");
+      },
+      out: function(event, ui) {
+        ui.item.addClass("block-out");
+      },
+      beforeStop: function(event, ui) {
+        //Gathering Board Area
+        var boardx = $(".board").offset().left;
+        var boardy = $(".board").offset().top;
+
+        let sortBlock = $(".block-out");
+        if (sortBlock.length > 0) {
+          let [blockType, x, y, centerx, centery] = returnBlockInfo(
+            sortBlock,
+            sortx,
+            sorty
+          );
+          let dropped = dropit(sortBlock, centerx, centery, x, y);
+          if (dropped) {
+            $(".block-out").remove();
+          } else {
+            $(".board").append(
+              recreateBlock(sortBlock, sortx - boardx, sorty - boardy)
+            );
+            let blockParent = $(".block-out").parent(".drop-area");
+            $(".block-out").remove();
+            dropAreaPaddingFix(blockParent);
+            enableBlockDrag();
+            enableDropAreaSort();
+          }
+        }
+      }
+    })
+    .disableSelection();
+}
+
 $("document").ready(function() {
   //Sortable Block Out Params
-  var sortx = 0;
-  var sorty = 0;
-  var droppables = ["ifthen", "repeat"];
+  //var droppables = ["ifthen", "repeat"];
 
   $(".board").on("click", ".block", function(e) {
     e.stopPropagation();
@@ -11,64 +70,6 @@ $("document").ready(function() {
   $(".board").on("click", "input", function(e) {
     e.stopPropagation();
   });
-
-  function enableBlockDrag() {
-    $(".board .block")
-      .disableSelection()
-      .draggable({
-        containment: "parent",
-        drag: function(event, ui) {
-          dragHover($(this));
-        },
-        stop: function(event, ui) {
-          let [blockType, x, y, centerx, centery] = returnBlockInfo($(this));
-          let deleteBlock = dropit($(this), centerx, centery, x, y);
-          if (deleteBlock) {
-            $(this).remove();
-          }
-        }
-      });
-  }
-
-  function enableDropAreaSort() {
-    $(".drop-area")
-      .sortable({
-        over: function(event, ui) {
-          $(".block").removeClass("block-out");
-        },
-        out: function(event, ui) {
-          ui.item.addClass("block-out");
-        },
-        beforeStop: function(event, ui) {
-          //Gathering Board Area
-          var boardx = $(".board").offset().left;
-          var boardy = $(".board").offset().top;
-
-          let sortBlock = $(".block-out");
-          if (sortBlock.length > 0) {
-            let [blockType, x, y, centerx, centery] = returnBlockInfo(
-              sortBlock,
-              sortx,
-              sorty
-            );
-            let dropped = dropit(sortBlock, centerx, centery, x, y);
-            if (dropped) {
-              $(".block-out").remove();
-            } else {
-              $(".board").append(
-                recreateBlock(sortBlock, sortx - boardx, sorty - boardy)
-              );
-              let blockParent = $(".block-out").parent(".drop-area");
-              $(".block-out").remove();
-              dropAreaPaddingFix(blockParent);
-              enableBlockDrag();
-              enableDropAreaSort();
-            }
-          }
-        }
-      })
-      .disableSelection();
-  }
 
   $(".panel .block")
     .disableSelection()

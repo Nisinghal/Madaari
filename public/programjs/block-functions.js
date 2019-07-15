@@ -1,4 +1,4 @@
-var blockNamesThen = ["delay", "motor", "animation", "repeat"];
+var blockNamesThen = ["delay", "motor", "animation", "repeat", "audio"];
 var blockNamesIf = [
   "keyword",
   "music",
@@ -45,9 +45,22 @@ function findOverlap(centerX, centerY, x, y) {
         thisCenterX,
         thisCenterY
       ] = returnBlockInfo($(this));
+      let thisHeight = $(this).height();
+      let thisWidth = $(this).width();
       let dist = distance(centerX, centerY, thisCenterX, thisCenterY);
       let blockArea = distance(centerX, centerY, x, y);
-      if (0 < dist && dist < blockArea + 30) {
+      if (0 < dist && dist < blockArea + 20) {
+        domElement = $(this);
+        result = "overlap";
+        return;
+      }
+      if (
+        thisx < centerX &&
+        centerX < thisx + thisWidth &&
+        thisy < centerY &&
+        centerY < thisy + thisHeight &&
+        0 < dist
+      ) {
         domElement = $(this);
         result = "overlap";
         return;

@@ -1,15 +1,16 @@
+let initialize = false;
+
 function getCueParameter(cuesRead, param) {
   let allCuesForParam = [];
   for (let i = 0; i < cuesRead.length; i++) {
     //let objArr = JSON.parse(cuesRead[i]);
     for (let j = 0; j < cuesRead[i].length; j++) {
       if (cuesRead[i][j][param]) {
-        allCuesForParam.push(
-          cuesRead[i][j][param]
-            .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
-            .trim()
-            .toLowerCase()
-        );
+        let cueVal = cuesRead[i][j][param]
+          .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+          .trim()
+          .toLowerCase();
+        if (allCuesForParam.indexOf(cueVal) < 0) allCuesForParam.push(cueVal);
       }
     }
   }
@@ -40,6 +41,32 @@ function checkKeyword(word, transcript) {
       .toLowerCase()
       .split(" ");
     if (transcriptArr.indexOf(word) > -1) {
+      $(".story-paragraph span.keyword." + word).css(
+        "background",
+        "rgba(69, 214, 143, 0.3)"
+      );
+      $(".story-paragraph span.keyword." + word).css(
+        "border",
+        "1px solid rgba(69, 214, 143, 0.5)"
+      );
+      $(".story-paragraph span.keyword." + word).css(
+        "box-shadow",
+        "0px 0px 0px .3rem rgba(69, 214, 143, 0.2)"
+      );
+      setTimeout(function() {
+        $(".story-paragraph span.keyword." + word).css(
+          "background",
+          "rgba(102, 154, 255, 0.1)"
+        );
+        $(".story-paragraph span.keyword." + word).css(
+          "border",
+          "1px solid rgba(102, 154, 255, 0.3)"
+        );
+        $(".story-paragraph span.keyword." + word).css(
+          "box-shadow",
+          "0px 0px 0px 0rem rgba(69, 214, 143, 0.1)"
+        );
+      }, 1000);
       return true;
     } else {
       return false;
@@ -91,11 +118,14 @@ function checkForEvent(cues, transcript, expression) {
 }
 
 function checkForStartEvent(cues) {
-  for (let i = 0; i < cues.length; i++) {
-    for (let j = 0; j < cues[i].length; j++) {
-      cuesObj = cues[i][j];
-      if (checkStart(cuesObj.start)) {
-        return i;
+  if (!initialize) {
+    for (let i = 0; i < cues.length; i++) {
+      for (let j = 0; j < cues[i].length; j++) {
+        cuesObj = cues[i][j];
+        if (checkStart(cuesObj.start)) {
+          initialize = true;
+          return i;
+        }
       }
     }
   }

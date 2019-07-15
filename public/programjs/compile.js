@@ -95,6 +95,22 @@ function compileCheck() {
                   return success;
                 }
               }
+
+              if (innerBlock.attr("aria-label") == "keyword") {
+                let keywordVal = innerBlock
+                  .find("input")
+                  .val()
+                  .trim();
+                if (keywordVal.indexOf(" ") > -1) {
+                  success = false;
+                  postCompileMessage(
+                    "error",
+                    "fa-exclamation-triangle",
+                    "Keyword should be a single word"
+                  );
+                  return success;
+                }
+              }
             });
         } else {
           success = false;
