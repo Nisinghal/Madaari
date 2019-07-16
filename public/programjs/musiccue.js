@@ -94,8 +94,9 @@ function updatePitch(i) {
     var curNote = noteStrings[note % 12];
 
     if (curNote != lastNote) {
-      curNoteSequence += curNote;
+      curNoteSequence += curNote + " ";
       console.log(curNote, curNoteSequence);
+      $(".music-notes").text(curNoteSequence);
       lastNote = curNote;
     } else {
     }
@@ -136,3 +137,53 @@ function waitForToneSequence(i) {
   curNoteSequence = "";
   startAudio(i);
 }
+
+var saveToMusicBlock;
+
+var recording = false;
+
+$(document).ready(function() {
+  $(".close-panel").click(function() {
+    $(".music-cue-panel").removeClass("open");
+  });
+
+  $(".board").on("click", ".music button.block-button", function() {
+    $(".music-cue-panel").addClass("open");
+    $(".music-notes").text("Sequence");
+    $(".save-notes-button").addClass("disabled");
+    saveToMusicBlock = $(this).parent(".music");
+  });
+
+  $(".music button.block-button").click(function() {
+    $(".music-cue-panel").addClass("open");
+    $(".music-notes").text("Sequence");
+    $(".save-notes-button").addClass("disabled");
+    saveToMusicBlock = $(this).parent(".music");
+  });
+
+  $(".record-button").click(function() {
+    if (!recording) {
+      recording = true;
+      $(".record-button p").html("Stop");
+      waitForToneSequence(0);
+    } else {
+      recording = false;
+      $(".record-button p").html("Record");
+      waitForToneSequence(0);
+      $(".save-notes-button").removeClass("disabled");
+    }
+  });
+
+  $(".save-notes-button").click(function() {
+    if (recording) {
+      recording = false;
+      $(".record-button p").html("Record");
+      waitForToneSequence(0);
+    }
+    $(".music-cue-panel").removeClass("open");
+    let sequence = $(".music-notes").text();
+    saveToMusicBlock
+      .find("input.music-cue-input")
+      .val(sequence.replace(/\s/g, ""));
+  });
+});

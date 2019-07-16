@@ -725,6 +725,20 @@ div.blocks-title.open {
     width: 90px;
   }
 
+  button.block-button {
+    font-size: 0.5em;
+    color: #fff;
+    padding: 5px 8px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.1);
+    border: none;
+    outline: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
   select > option {
     font-family: $mono;
   }
@@ -738,7 +752,7 @@ div.blocks-title.open {
 
 .board {
   .block {
-    transform: scale(0.9);
+    transform: scale(0.95);
   }
 
   .drop-area {
@@ -1221,7 +1235,7 @@ STORY READING
     background: rgba(0, 0, 0, 0.7);
     border-radius: 5px;
     color: #fff;
-    font-size: 0.8em;
+    font-size: 0.7em;
     transform: translate(-50%, 0);
   }
 
@@ -1584,4 +1598,122 @@ header.dark-mode {
       }
     }
   }
+}
+
+/* Music Cue */
+
+.music-cue-panel {
+  height: 50vh;
+  width: 50vw;
+  background: #fff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  z-index: 10000000;
+  box-shadow: 10px 10px 50px rgba(102, 154, 255, 0.25);
+  border-radius: 10px;
+  @include transition(0.25s);
+
+  .panel-title {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    color: $text-dark;
+    font-weight: 600;
+    font-size: 0.7em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .close-panel {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    color: $text-light;
+    cursor: pointer;
+    @include transition(0.5s);
+  }
+
+  .close-panel:hover {
+    transform: scale(1.2);
+  }
+
+  .save-notes-button {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background: $text-light;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    @include transition(0.5s);
+  }
+
+  .save-notes-button.disabled {
+    pointer-events: none;
+    background: $tab-gray;
+  }
+
+  .panel-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .record-button {
+      position: relative;
+      height: 90px;
+      width: 90px;
+      background: $red;
+      border-radius: 100%;
+      cursor: pointer;
+      user-select: none;
+      @include transition(0.5s);
+
+      p {
+        color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: 0;
+        padding: 0;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    .record-button:hover {
+      box-shadow: 0px 0px 0px 0.6rem #e62b4a1f;
+    }
+
+    .record-button:active {
+      transform: scale(0.9);
+    }
+
+    .music-notes {
+      width: 50%;
+      font-size: 1.2em;
+      color: $text-dark;
+      font-weight: 600;
+      padding: 20px;
+      border: 1px solid rgba(102, 154, 255, 0.1);
+      border-radius: 5px;
+      margin: 10px 30px;
+    }
+  }
+}
+
+.music-cue-panel.open {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }

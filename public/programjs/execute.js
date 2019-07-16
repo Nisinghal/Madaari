@@ -132,6 +132,9 @@ function getCueBlockDetails(block) {
   if (blockType == "keyword") {
     let cue = block.find("input.word").val();
     return ["keyword", cue];
+  } else if (blockType == "music") {
+    let cue = block.find("input.music-cue-input").val();
+    return ["music", cue];
   } else if (blockType == "expression") {
     let cue = block.find("select").val();
     return ["expression", cue];

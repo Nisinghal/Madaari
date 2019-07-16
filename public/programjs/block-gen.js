@@ -59,12 +59,10 @@ function generateBlock(keyword, x, y, specific = "", values = blankValues) {
     var block = `
       <div class="block music ${blockType}" aria-label="music" style="${specific} top: ${y}px; left: ${x}px;">
         <p class="name">${blockTitle[keywordIndex]}</p>
-        <select>
-          <option disabled selected>Select</option>
-          <option ${values[0]}>Happy</option>
-          <option ${values[1]}>Gloomy</option>
-          <option ${values[2]}>More</option>
-        </select>
+        <input type="text" class="music-cue-input large-input" value="${
+          values[0]
+        }" placeholder="Note Sequence"/>
+        <button class="block-button">Record</button>
       </div>
     `;
   } else if (keyword == "expression") {
@@ -197,10 +195,10 @@ function recreateBlock(block, x, y, specific = "") {
     }
     return generateBlock(blockName, x, y, specific, val);
   } else if (blockName == "music") {
-    let val = block.find("option:selected").text();
-    if (val != "Select") {
-      let values = ["", "", ""];
-      values[["Happy", "Gloomy", "More"].indexOf(val)] = "selected";
+    let val = block.find("input.music-cue-input").val();
+    if (val) {
+      let values = [""];
+      values[0] = val;
       return generateBlock(blockName, x, y, specific, values);
     } else {
       return generateBlock(blockName, x, y, specific);
